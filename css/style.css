@@ -1,3 +1,27 @@
+ul li a.activeLi {
+    color:white;
+    background-color: #0D47A1;
+}
+
+ul li a.activeLi i.material-icons {
+    color:white;
+    background-color: #0D47A1;
+}
+
+ul li a i.material-icons.left {
+    margin-right: 15px;
+}
+
+ul li a.activeLi:hover {
+    color:#0D47A1;
+    background-color: #cccccc;
+}
+
+ul li a.activeLi:hover i.material-icons {
+    color:#0D47A1;
+    background-color: #cccccc;
+}
+
 body {
     display: flex;
     min-height: 100vh;
@@ -29,3 +53,33 @@ main {
 .dropdown-content li > span {
     color: black !important;
 }
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
+
+.alert.warning {
+    background-color: #ff9800;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+.subheader {
+    font-size:1.64em !important;
+}
+
