@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+		<link type="text/css" rel="stylesheet" href="../css/style.css"  media="screen,projection"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Distribuidora Ale</title>
+		<style>
+            .alert {
+                padding: 20px;
+                background-color: #f44336;
+                color: white;
+            }
+            
+            .alert.warning {
+                background-color: #ff9800;
+            }
+
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 22px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .closebtn:hover {
+                color: black;
+            }
+        </style>
+	</head>
+	<body>
+		<header>
+			<nav class="blue darken-4">
+				<div class="nav-wrapper">
+					<a  class="brand-logo center white-text" href="#" style="margin-top: 0%;">Distribuidora Ale</a>
+					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right:5%;">
+						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
+						<li><a href="./logout.php" class="white-text">Sair</a></li>
+					</ul>
+					<ul id="" class="left hide-on-med-and-down" style="margin-left:2%;">
+						<li><a href="./admin.php" class="white-text"><i class="material-icons white-text left">chevron_left</i>Voltar</a></li>
+					</ul>
+					<ul class="sidenav grey darken-4" id="mobile-demo">
+						<li>Distribuidora Ale</li>
+						<li style='margin-right: 0%; padding: 0px;'><a class='sidenav-close' href='#!' style='padding: 0px;'><i class='material-icons right white-text'>close</i></a></li>
+						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
+						<li><a href="./logout.php" class="white-text">Sair</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<main>
+			<div class="row">
+                <div class="col s12 m12 l12 xl12">
+                    <div class="col s12 m6 l6 xl6">
+                        <div class="row" style="margin: 2% 2% 0%;">
+                            <h4 class="center blue-text text-darken-4">Venda</h4>
+                            <div class="divider black"></div>
+                            <div class="row"></div>
+                            <form action="venda.php" class="center" method="get">
+								<div class="row">
+									<div class="input-field col s12 m12 l6 xl6">
+										<input type="text" name="codigo" id="codigo">
+										<label for="codigo">Código</label>
+									</div>
+									<div class="input-field col s12 m12 l6 xl6">
+										<input type="number" min="1" name="quantidade" id="quantidade" required not null>
+										<label for="quantidade">Quantidade (UN)</label>
+									</div>
+									<div class="input-field col s12 m12 l6 xl6">
+										<input type="text" name="nome" id="nome">
+										<label for="nome">Nome</label>
+									</div>
+									<div class="input-field col s12 m12 l6 xl6">
+										<input type="number" min="0.01" step="0.01" max="2500" name="valor" id="valor" readonly="true" placeholder="Valor">
+									</div>
+								</div>
+								<div class="row">
+									<button type="submit" class="btn waves-effect waves-light blue darken-4 white-text center">Adicionar a Lista</button>
+								</div>
+							</form>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l6 xl6">
+                        <div class="row" style="margin: 2% 2% 0%;">
+                            <h4 class="center blue-text text-darken-4">Lista de Itens</h4>
+                            <div class="divider black"></div>
+                            <div class="row"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</main>
+
+		<footer class="page-footer blue darken-4 hide-on-small-only">
+			<div class="row container">
+				<div class="left">
+					Made by: <b>LG Informática</b>
+				</div>
+				<div class="right">
+					Copyright © 2018 - Todos os direitos reservados.
+				</div>
+			</div>
+		</footer>
+		
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				$("input[name='codigo']").blur(function(){
+					var $nome_produto = $("input[name='nome']");
+					var $valor = $("input[name='valor']");
+					$.getJSON('function.php',{ 
+						codigo: $(this).val() 
+					},function( json ){
+						$nome_produto.val( json.nome_produto );
+						$valor.val( json.valor );
+					});
+				});
+			});
+		</script>
+		<script src="../js/jquery.js"></script>
+		<script type="text/javascript" src="../js/materialize.min.js"></script>
+		<script src="../js/init.js"></script>
+	</body>
+</html>
+        

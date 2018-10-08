@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+main {
+    flex: 1 0 auto;
+}
+
+.parallax-container {
+    min-height: 100%;
+    line-height: 0;
+    height: auto;
+    color: rgba(255,255,255,.9);
+  }
+.parallax-container .section {
+    width: 100%;
+}
+
+.bg {
+    background-image: url("../imgs/aisle-beverages-bottles-811108.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.dropdown-content li > span {
+    color: black !important;
+}
