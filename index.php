@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -39,7 +39,7 @@
 									<div class="row">
 										<div class="input-field col s12 m12 l12 xl12">
 											<i class="material-icons prefix blue-text text-darken-4">lock</i>
-											<input id="icon_telephone " type="tel" class="validate" name="pass">
+											<input id="icon_telephone " type="password" class="validate" name="pass">
 											<label for="icon_telephone">Senha</label>
 										</div>
 									</div>
@@ -69,27 +69,29 @@
 
 		<?php 
 			if(isset($_POST['user'])) {
-				include("configs/conection.php");
+				include("pages/conexao.php");
 				$userlog = $_POST['user'];
 				$passlog = $_POST['pass'];
-				$sql = "select * from usuarios where loginusuario='".$userlog."' and senhausuario='".sha1($passlog)."' limit 1;";
+				// $sql = "select * from usuarios where loginUsuario='".$userlog."' and senhaUsuario='".sha1($passlog)."' limit 1;";
+				$sql = "select * from usuarios where loginUsuario='".$userlog."' and senhaUsuario='".($passlog)."' limit 1;";
 				$result = mysqli_query($con,$sql);
 				$numrow = mysqli_num_rows($result);
 				$field = $result->fetch_array();
-				$shasenha = sha1($passlog);
-				$usuario = $field['loginusuario'];
-				$senhausuario = $field['senhausuario'];
+				// $shasenha = sha1($passlog);
+				$shasenha = ($passlog);
+				$usuario = $field['loginUsuario'];
+				$senhausuario = $field['senhaUsuario'];
 				if ($usuario == $userlog && $senhausuario == $shasenha){
 					echo "entrou";
 					session_start();
 					$_SESSION['login'] = true;
-					$_SESSION['loginUsuario'] = $field['nomeusuario'];
-					$_SESSION['cargo'] = $field['cargousuario'];
-					$_SESSION['id'] = $field['idusuarios'];
+					$_SESSION['loginUsuario'] = $field['nomeUsuario'];
+					$_SESSION['cargo'] = $field['cargoUsuario'];
+					$_SESSION['id'] = $field['idUsuarios'];
 					if ($_SESSION['cargo'] === "VENDEDOR") {
-						header("location: views/func.php");
+						header("location: pages/func.php");
 					} else {
-						header("location: views/admin.php");
+						header("location: pages/admin.php");
 					}
 				}
 				mysqli_close($con);
