@@ -32,6 +32,20 @@ main {
     flex: 1 0 auto;
 }
 
+header, main, footer {
+    padding-left: 260px;
+}
+    
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}
+
+tr {
+    border-bottom: 2px solid rgba(0,0,0,1);
+}
+
 .parallax-container {
     min-height: 100%;
     line-height: 0;
@@ -83,3 +97,6 @@ main {
     font-size:1.64em !important;
 }
 
+.sidenav {
+    width: 260px;
+}
