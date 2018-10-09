@@ -51,36 +51,45 @@
 					<table class="highlight centered">
 						<thead>
 							<tr>
+								<th>Fornecedor</th>
 								<th>Código</th>
 								<th>Nome</th>
 								<th>Quantidade</th>
 								<th>Valor de Compra</th>
 								<th>Valor de Venda</th>
+								<th>Editar</th>
+								<th>Excluir</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
-								// include_once("../configs/conection.php");
-								// $sql = "select * from produtos order by produtos.nomeproduto asc";
-								// $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
-								// if(!isset($_POST['nomeproduto']) || $nome == '' ){
-								// 	if(mysqli_num_rows($resultado) > 0) {
-								// 		$cargo = $_SESSION['cargo'];
-								// 		while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
-								// 			echo "<tr>";
-								// 				echo ("<td>".$row["codigoean"]."</td>");
-								// 				echo ("<td>".$row["nomeproduto"]."</td>");
-								// 				echo ("<td>".$row["quantidadeproduto"]."</td>");
-								// 				echo ("<td>".$row["precocompraproduto"]."</td>");
-								// 				echo ("<td>".$row["precovendaproduto"]."</td>");
-								// 				if($_SESSION['cargo'] != "VENDEDOR"){
-								// 					echo ("<td><a href='editarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light yellow black-text'>Editar</a></td>");
-								//            			echo ("<td><a href='deletarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light red black-text'>Exluir</a></td>");
-								// 				}
-								// 			echo "</tr>";
-								// 		}
-								// 	} 
-								// }else{
+								$total = 0;
+								include_once("conexao.php");
+								// $sql = "select * from produtos order by produtos.nomeProduto asc";
+                                $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valoVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";							
+								$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
+								if(!isset($_POST['nomeProduto']) || $nome == '' ){
+									if(mysqli_num_rows($resultado) > 0) {
+										// $cargo = $_SESSION['cargo'];
+										while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
+											echo "<tr>";
+												echo ("<td>".$row["nomeFornecedor"]."</td>");
+												echo ("<td>".$row["eanProduto"]."</td>");
+												echo ("<td>".$row["nomeProduto"]."</td>");
+												echo ("<td>".$row["qtdProduto"]."</td>");
+												echo ("<td>".$row["valorCompraProduto"]."</td>");
+												echo ("<td>".$row["valoVendaProduto"]."</td>");
+												// if($_SESSION['cargo'] != "VENDEDOR"){
+													echo ("<td><a href='editarProduto.php?id=".$row["idProduto"]."' class='btn waves-effect waves-light yellow black-text'>Editar</a></td>");
+								           			echo ("<td><a href='deletarProduto.php?id=".$row["idProduto"]."' class='btn waves-effect waves-light red black-text'>Exluir</a></td>");
+												// }
+											echo "</tr>";
+											$total = $total + $row["valorCompraProduto"];
+										}
+										echo ("<tr><td>Valor total: ".$total."</td></tr>");
+									} 
+								}
+								// else{
 								// 	$nome = $_POST['nomeproduto'];
 								// 	$sql = "select * from produtos where nomeproduto like '%".$nome."%' order by nomeproduto asc ";
 								// 	$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
@@ -101,7 +110,7 @@
 								// 		}
 								// 	} 
 								// }
-								// mysqli_close($con);
+								mysqli_close($con);
 							?>
 						</tbody>
 					</table>
