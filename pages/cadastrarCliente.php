@@ -35,10 +35,12 @@
 					<div class="row"></div>
 					<li><a href="./addEstoque.php"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
 					<li><a href="./cadastrarCliente.php" class="activeLi"><i class="material-icons left">face</i>Cadastrar Cliente</a></li>
-					<li><a href="./cadastroProduto.php"><i class="material-icons left">edit</i>Cadastrar Produto</a></li>
+					<li><a href="./cadastrarFornecedor.php"><i class="material-icons left">local_shipping</i>Cadastrar Fornecedor</a></li>
+					<li><a href="./cadastrarProduto.php"><i class="material-icons left">edit</i>Cadastrar Produto</a></li>
 					<li><a href="./venda.php" ><i class="material-icons left">add_shopping_cart</i>Efetuar Venda</a></li>
 					<li><a href="./estoque.php"><i class="material-icons left">storage</i>Estoque</a></li>
 					<li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
+					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>					
 					<!-- <li><a href="./vendasDiarias.php"><i class="material-icons left">attach_money</i>Vendas diárias</a></li> -->
 					<!-- <li><a href=""><i class="material-icons left">perm_identity</i>Adicionar Funcionário</a></li> -->
 				</ul>
