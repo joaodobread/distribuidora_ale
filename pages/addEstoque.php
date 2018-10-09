@@ -63,14 +63,14 @@
 							<input type='number' min="0.01" step="0.01" max="2500" name='valorcompra' id='valorcompra' required  not null>
 							<label for='valor'>Preço de compra</label>
 						</div>
+						<div class='input-field col s12 m12 l6 xl6'>
+							<input disabled type='text' name='nome' id='nome' value=''>
+							<!-- <label for='nome'>Nome</label> -->
+						</div>
 						<div class='input-field col s12 m12  l6 xl6'>
 							<input type='number' min='1' name='quantidade' id='quantidade' required not null>
 							<label for='quantidade'>Quantidade (UN)</label>
-						</div>
-						<div class='input-field col s12 m12 l12 xl12'>
-							<input disabled type='text' name='nome' id='nome' placeholder="Nome">
-							<!-- <label for='nome'>Nome</label> -->
-						</div>
+						<input type='hidden' name='idprodutos' value=''>
 					</div>
 					<button type="submit" class="btn waves-effect waves-light blue darken-4 white-text">Inserir</button>
 				</form>
