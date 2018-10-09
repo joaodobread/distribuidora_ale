@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -23,7 +23,7 @@
 						<li>Distribuidora Ale</li>
 						<li style='margin-right: 0%; padding: 0px;'><a class='sidenav-close' href='#!' style='padding: 0px;'><i class='material-icons right white-text'>close</i></a></li>
 						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
-						<li><a href="./logout.php" class="white-text">Sair</a></li>
+						<li><a href="/logout.php" class="white-text">Sair</a></li>
 					</ul>
 				</div>
 			</nav>

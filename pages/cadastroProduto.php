@@ -108,6 +108,7 @@
                         <thead>
                             <tr>
                                 <th>Código</th>
+                                <th>Fornecedor</th>
                                 <th>Nome</th>
                                 <th>Quantidade em estoque</th>
                                 <th>Valor de Compra</th>
@@ -118,40 +119,41 @@
                         </thead>
                         <tbody>
                             <?php
-                                // include_once("../configs/conection.php");
-                                // if(isset($_POST['nome'])) {
-                                //     $codigoean = strtoupper($_POST['codigo']);
-                                //     $nomeproduto = strtoupper($_POST['nome']);
-                                //     $quantidade = strtoupper($_POST['quantidade']);
-                                //     $valorcompra = strtoupper($_POST['valorcompra']);
-                                //     $valorvenda = strtoupper($_POST['valorvenda']);
-                                //     //verifica se existe ean cadastrados no banco
-                                //     $sql = "select * from produtos where codigoean = '".$codigoean."'";
-                                //     $result = mysqli_query($con, $sql);
-                                //     if(mysqli_num_rows($result) > 0){
-                                //         echo ("<script>alert('Produto já cadastrado');</script>");
-                                //     }else{
-                                //         $sql = "insert into produtos values(null,$codigoean,'$nomeproduto',$valorcompra,$valorvenda,$quantidade)";
-                                //         mysqli_query($con, $sql);
-                                //         echo ("<script>alert('Produto cadastrado');</script>");
-                                //     }
-                                // }
-                                // $sql = "select * from produtos order by produtos.nomeproduto asc";
-                                // $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
-                                // if(mysqli_num_rows($resultado) > 0) {
-                                //     while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
-                                //         echo "<tr>";
-                                //             echo ("<td>".$row["codigoean"]."</td>");
-                                //             echo ("<td>".$row["nomeproduto"]."</td>");
-                                //             echo ("<td>".$row["quantidadeproduto"]."</td>");
-                                //             echo ("<td>".$row["precocompraproduto"]."</td>");
-                                //             echo ("<td>".$row["precovendaproduto"]."</td>");
-                                //             echo ("<td><a href='editarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
-                                //             echo ("<td><a href='deletarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
-                                //         echo "</tr>";
-                                //     }
-                                // } 
-                                // mysqli_close($con);
+                                include_once("conexao.php");
+                                if(isset($_POST['nome'])) {
+                                    $codigoean = strtoupper($_POST['codigo']);
+                                    $nomeproduto = strtoupper($_POST['nome']);
+                                    $quantidade = strtoupper($_POST['quantidade']);
+                                    $valorcompra = strtoupper($_POST['valorcompra']);
+                                    $valorvenda = strtoupper($_POST['valorvenda']);
+                                    //verifica se existe ean cadastrados no banco
+                                    $sql = "select * from produtos where codigoean = '".$codigoean."'";
+                                    $result = mysqli_query($con, $sql);
+                                    if(mysqli_num_rows($result) > 0){
+                                        echo ("<script>alert('Produto já cadastrado');</script>");
+                                    }else{
+                                        $sql = "insert into produtos values(null,$codigoean,'$nomeproduto',$valorcompra,$valorvenda,$quantidade)";
+                                        mysqli_query($con, $sql);
+                                        echo ("<script>alert('Produto cadastrado');</script>");
+                                    }
+                                }
+                                $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valoVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";
+                                $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
+                                if(mysqli_num_rows($resultado) > 0) {
+                                    while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
+                                        echo "<tr>";
+                                            echo ("<td>".$row["eanProduto"]."</td>");
+                                            echo ("<td>".$row["nomeFornecedor"]."</td>");
+                                            echo ("<td>".$row["nomeProduto"]."</td>");
+                                            echo ("<td>".$row["qtdProduto"]."</td>");
+                                            echo ("<td>".$row["valorCompraProduto"]."</td>");
+                                            echo ("<td>".$row["valoVendaProduto"]."</td>");
+                                            echo ("<td><a href='editarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+                                            echo ("<td><a href='deletarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
+                                            echo "</tr>";
+                                    }
+                                } 
+                                mysqli_close($con);
                             ?>
                         </tbody>
                     </table>
