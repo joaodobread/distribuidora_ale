@@ -84,17 +84,24 @@
                             <input type="text" name="nome" id="nome" required not null>
                             <label for="nome">Nome</label>
                         </div>
-                        <div class="input-field col s12 m4  l4 xl4">
+                        <div class="input-field col s12 m4 l4 xl4">
                             <input type="number" min="1" name="quantidade" id="quantidade" required not null>
                             <label for="quantidade">Quantidade (UN)</label>
                         </div>
-                        <div class="input-field col s12 m4  l4 xl4">
+                        <div class="input-field col s12 m4 l4 xl4">
                             <input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
                             <label for="valor">Preço de compra (R$)</label>
                         </div>
-                        <div class="input-field col s12 m4  l4 xl4">
+                        <div class="input-field col s12 m4 l4 xl4">
                             <input type="number" min="0.01" step="0.01" max="2500" name="valorvenda" id="valor" required not null>
                             <label for="valor">Preço de venda (R$)</label>
+                        </div>
+                        <div class="input-field col s12 m12 l12 xl12">
+                            <select>
+                                <option value="" disabled selected>Selecione um dos forncedores</option>
+                                <option value="id dele">Nome do fornecedor</option>
+                            </select>
+                            <label>Fornecedor</label>
                         </div>
                     </div>
                     <button type="submit" class="btn waves-effect waves-light blue white-text darken-4 center">Cadastrar</button>
