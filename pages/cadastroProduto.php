@@ -1,3 +1,4 @@
+<?php include_once("conexao.php");?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -97,9 +98,18 @@
                             <label for="valor">Preço de venda (R$)</label>
                         </div>
                         <div class="input-field col s12 m12 l12 xl12">
-                            <select>
-                                <option value="" disabled selected>Selecione um dos forncedores</option>
-                                <option value="id dele">Nome do fornecedor</option>
+                            <select name='fornecedor'>
+                                <option value="" disabled selected>Selecione um dos fornecedores</option>
+                                <?php
+                                    $select = "select * from fornecedores";
+                                    $resultf = mysqli_query($con, $select);
+                                    while($rowf = mysqli_fetch_array($resultf,MYSQLI_ASSOC)) {
+                                        echo("
+                                             <option value='".$rowf['idFornecedor']."'>".$rowf['nomeFornecedor']."</option>
+                                            ");
+                                            
+                                    }
+                                ?>
                             </select>
                             <label>Fornecedor</label>
                         </div>
@@ -126,20 +136,21 @@
                         </thead>
                         <tbody>
                             <?php
-                                include_once("conexao.php");
                                 if(isset($_POST['nome'])) {
                                     $codigoean = strtoupper($_POST['codigo']);
                                     $nomeproduto = strtoupper($_POST['nome']);
                                     $quantidade = strtoupper($_POST['quantidade']);
                                     $valorcompra = strtoupper($_POST['valorcompra']);
                                     $valorvenda = strtoupper($_POST['valorvenda']);
+                                    $fornecedor = strtoupper($_POST['fornecedor']);
                                     //verifica se existe ean cadastrados no banco
-                                    $sql = "select * from produtos where codigoean = '".$codigoean."'";
+                                    $sql = "select * from produtos where eanProduto = '".$codigoean."'";
                                     $result = mysqli_query($con, $sql);
                                     if(mysqli_num_rows($result) > 0){
                                         echo ("<script>alert('Produto já cadastrado');</script>");
                                     }else{
-                                        $sql = "insert into produtos values(null,$codigoean,'$nomeproduto',$valorcompra,$valorvenda,$quantidade)";
+                                        $sql = "insert into produtos values(null,$fornecedor,'$codigoean','$nomeproduto',$valorcompra,$valorvenda,$quantidade)";
+                                        // echo $sql;
                                         mysqli_query($con, $sql);
                                         echo ("<script>alert('Produto cadastrado');</script>");
                                     }
@@ -155,8 +166,8 @@
                                             echo ("<td>".$row["qtdProduto"]."</td>");
                                             echo ("<td>".$row["valorCompraProduto"]."</td>");
                                             echo ("<td>".$row["valoVendaProduto"]."</td>");
-                                            echo ("<td><a href='editarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
-                                            echo ("<td><a href='deletarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
+                                            echo ("<td><a href='' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+                                            echo ("<td><a href='' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
                                             echo "</tr>";
                                     }
                                 } 

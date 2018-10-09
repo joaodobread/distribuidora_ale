@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `shego`.`clientes` (
   `idClientes` INT NOT NULL AUTO_INCREMENT,
   `nomeCliente` VARCHAR(200) NOT NULL,
   `telefoneCliente` VARCHAR(20) NOT NULL,
-  `emailCliente` VARCHAR(200) NULL,
+  `emailCliente` VARCHAR(200) NULL UNIQUE,
   `enderecoCliente` VARCHAR(200) NULL,
   PRIMARY KEY (`idClientes`))
 ENGINE = InnoDB

@@ -47,7 +47,7 @@
 				<h4 class="center blue-text text-darken-4">Cadastrar Cliente</h4>
 				<div class="divider black"></div>
 				<div class="row"></div>
-				<form action="cadastroProduto.php" method="post" class="center">
+				<form action="cadastrarCliente.php" method="post" class="center">
 					<div class="row">
 						<div class="input-field col s12 m12 l6 xl6">
 							<input type="text" name="nome" id="nome" required not null>
@@ -58,7 +58,11 @@
 							<label for="telefone">Telefone</label>
 						</div>
 						<div class="input-field col s12 m12 l12 xl12">
-							<input type="text" name="endereco" id="endereco" required not null>
+							<input type="email" name="email" id="email" >
+							<label for="email">Email</label>
+						</div>
+						<div class="input-field col s12 m12 l12 xl12">
+							<input type="text" name="endereco" id="endereco">
 							<label for="endereco">Endereço</label>
 						</div>
 					</div>
@@ -74,6 +78,7 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Telefone</th>
+								<th>Email</th>
 								<th>Endereço</th>
 								<th>Editar</th>
                                 <th>Excluir</th>
@@ -81,39 +86,39 @@
                         </thead>
                         <tbody>
                             <?php
-                                // include_once("../configs/conection.php");
-                                // if(isset($_POST['nome'])) {
-                                //     $codigoean = strtoupper($_POST['codigo']);
-                                //     $nomeproduto = strtoupper($_POST['nome']);
-                                //     $quantidade = strtoupper($_POST['quantidade']);
-                                //     $valorcompra = strtoupper($_POST['valorcompra']);
-                                //     $valorvenda = strtoupper($_POST['valorvenda']);
-                                //     //verifica se existe ean cadastrados no banco
-                                //     $sql = "select * from produtos where codigoean = '".$codigoean."'";
-                                //     $result = mysqli_query($con, $sql);
-                                //     if(mysqli_num_rows($result) > 0){
-                                //         echo ("<script>alert('Produto já cadastrado');</script>");
-                                //     }else{
-                                //         $sql = "insert into produtos values(null,$codigoean,'$nomeproduto',$valorcompra,$valorvenda,$quantidade)";
-                                //         mysqli_query($con, $sql);
-                                //         echo ("<script>alert('Produto cadastrado');</script>");
-                                //     }
-                                // }
-                                // $sql = "select * from produtos order by produtos.nomeproduto asc";
-                                // $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
-                                // if(mysqli_num_rows($resultado) > 0) {
-                                //     while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
-                                //         echo "<tr>";
-                                //             echo ("<td>".$row["codigoean"]."</td>");
-                                //             echo ("<td>".$row["nomeproduto"]."</td>");
-                                //             echo ("<td>".$row["quantidadeproduto"]."</td>");
-                                //             echo ("<td>".$row["precocompraproduto"]."</td>");
-                                //             echo ("<td>".$row["precovendaproduto"]."</td>");
-                                //             echo ("<td><a href='editarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
-                                //             echo ("<td><a href='deletarProduto.php?id=".$row["idprodutos"]."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
-                                //         echo "</tr>";
-                                //     }
-                                // } 
+                                include_once("conexao.php");
+                                if(isset($_POST['nome'])) {
+                                    $nome = strtoupper($_POST['nome']);
+                                    $telefone = strtoupper($_POST['telefone']);
+                                    $email = ($_POST['email']);
+                                    $endereco = strtoupper($_POST['endereco']);
+                                    //verifica se existe ean cadastrados no banco
+                                    $sql = "select * from clientes where emailCliente = '".$email."'";
+                                    $result = mysqli_query($con, $sql);
+                                    if(mysqli_num_rows($result) > 0){
+                                        echo ("<script>alert('Cliente já cadastrado');</script>");
+                                    }else{
+                                        $sql = "insert into clientes values(null,'$nome','$telefone','$email','$endereco')";
+										// echo $sql;
+										mysqli_query($con, $sql);
+                                        echo ("<script>alert('Cliente cadastrado');</script>");
+                                    }
+                                }
+                                $sql = "select * from clientes order by clientes.nomeCliente asc";
+                                $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
+                                if(mysqli_num_rows($resultado) > 0) {
+                                    while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
+                                        echo "<tr>";
+                                            // echo ("<td>".$row["idClientes"]."</td>");
+                                            echo ("<td>".$row["nomeCliente"]."</td>");
+                                            echo ("<td>".$row["telefoneCliente"]."</td>");
+                                            echo ("<td>".$row["emailCliente"]."</td>");
+                                            echo ("<td>".$row["enderecoCliente"]."</td>");
+                                            echo ("<td><a href='' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+                                            echo ("<td><a href='	' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
+                                        echo "</tr>";
+                                    }
+                                } 
                                 // mysqli_close($con);
                             ?>
                         </tbody>
