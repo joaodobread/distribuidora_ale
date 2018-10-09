@@ -1,5 +1,5 @@
 <?php 
-//include_once("conexao.php");
+include_once("conexao.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -57,69 +57,98 @@
 				</div>
 			</nav>
 		</header>
-
-		<main>
-            <div class="row">
-				<ul id="sidenav-1" class="sidenav sidenav-fixed grey lighten-5">
-					<li><a class="subheader blue darken-4 white-text">Menu</a></li>
-					<div class="row"></div>
-					<li><a href="./addEstoque.php"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
-					<li><a href="./cadastrarCliente.php"><i class="material-icons left">face</i>Cadastrar Cliente</a></li>
-					<li><a href="./cadastrarFornecedor.php" class="activeLi"><i class="material-icons left">local_shipping</i>Cadastrar Fornecedor</a></li>
-					<li><a href="./cadastrarProduto.php"><i class="material-icons left">edit</i>Cadastrar Produto</a></li>
-					<li><a href="./venda.php"><i class="material-icons left">add_shopping_cart</i>Efetuar Venda</a></li>
-					<li><a href="./estoque.php"><i class="material-icons left">storage</i>Estoque</a></li>
-                    <li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
-                    <li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
-					<!-- <li><a href="./vendasDiarias.php"><i class="material-icons left">attach_money</i>Vendas diárias</a></li> -->
-					<!-- <li><a href=""><i class="material-icons left">perm_identity</i>Adicionar Funcionário</a></li> -->
-				</ul>
-			</div>
-		    <div class="row" style="margin: 2% 2% 0%;">
-                <h4 class="center blue-text text-darken-4">Cadastro de Fornecedor</h4>
-                <div class="divider black"></div>
-                <div class="row"></div>
-                <form action="cadastroProduto.php" method="post" class="center">
-                    <div class="row">
-                        <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="nome" id="nome" required autofocus not null>
-                            <label for="nome">Nome</label>
-                        </div>
-                        <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="telefone" id="telefone" required not null>
-                            <label for="telefone">Telefone</label>
-                        </div>
-                        <div class="input-field col s12 m12 l12 xl12">
-                            <input type="email" name="email" id="email" required not null>
-                            <label for="email">Email</label>
-                        </div>
-                        
-                    </div>
-                    <button type="submit" class="btn waves-effect waves-light blue white-text darken-4 center">Cadastrar</button>
-                </form>
-            </div>
-            <div class="row" style="margin: 2% 2% 0%;">
-                <h4 class="center blue-text text-darken-4">Fornecedores Cadastrados</h4>
-                <div class="divider black"></div>
+            <main>
                 <div class="row">
-                    <table class="highlight centered">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Telefone</th>
-                                <th>E-mail</th>
-                                <th>Editar</th>
-                                <th>Excluir</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
+                    <ul id="sidenav-1" class="sidenav sidenav-fixed grey lighten-5">
+                        <li><a class="subheader blue darken-4 white-text">Menu</a></li>
+                        <div class="row"></div>
+                        <li><a href="./addEstoque.php"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
+                        <li><a href="./cadastrarCliente.php"><i class="material-icons left">face</i>Cadastrar Cliente</a></li>
+                        <li><a href="./cadastrarFornecedor.php" class="activeLi"><i class="material-icons left">local_shipping</i>Cadastrar Fornecedor</a></li>
+                        <li><a href="./cadastrarProduto.php"><i class="material-icons left">edit</i>Cadastrar Produto</a></li>
+                        <li><a href="./venda.php"><i class="material-icons left">add_shopping_cart</i>Efetuar Venda</a></li>
+                        <li><a href="./estoque.php"><i class="material-icons left">storage</i>Estoque</a></li>
+                        <li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
+                        <li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
+                        <!-- <li><a href="./vendasDiarias.php"><i class="material-icons left">attach_money</i>Vendas diárias</a></li> -->
+                        <!-- <li><a href=""><i class="material-icons left">perm_identity</i>Adicionar Funcionário</a></li> -->
+                    </ul>
                 </div>
-            </div>
-		</main>
-
+                <div class="row" style="margin: 2% 2% 0%;">
+                    <h4 class="center blue-text text-darken-4">Cadastro de Fornecedor</h4>
+                    <div class="divider black"></div>
+                    <div class="row"></div>
+                    <form action="cadastrarFornecedor.php" method="post" class="center">
+                        <div class="row">
+                            <div class="input-field col s12 m12 l6 xl6">
+                                <input type="text" name="nome" id="nome" required autofocus not null>
+                                <label for="nome">Nome</label>
+                            </div>
+                            <div class="input-field col s12 m12 l6 xl6">
+                                <input type="tel" placeholder='00 0 0000-0000' pattern="[0-9]{2} [0-9]{1} [0-9]{4}-[0-9]{4}" name="telefone" id="telefone" required not null>
+                                <label for="telefone">Telefone</label>
+                            </div>
+                            <div class="input-field col s12 m12 l12 xl12">
+                                <input type="email" name="email" id="email">
+                                <label for="email">Email</label>
+                            </div>
+                            
+                        </div>
+                        <button type="submit" class="btn waves-effect waves-light blue white-text darken-4 center">Cadastrar</button>
+                    </form>
+                </div>
+                <div class="row" style="margin: 2% 2% 0%;">
+                    <h4 class="center blue-text text-darken-4">Fornecedores Cadastrados</h4>
+                    <div class="divider black"></div>
+                    <div class="row">
+                        <table class="highlight centered">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Telefone</th>
+                                    <th>E-mail</th>
+                                    <th>Editar</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    if(isset($_POST['nome'])) {
+                                        $telefone = ($_POST['telefone']);
+                                        $nomefornecedor = ($_POST['nome']);
+                                        $email = ($_POST['email']);
+                                        //verifica se existe ean cadastrados no banco
+                                        $sql = "select * from fornecedores where telefoneFornecedor = '".$telefone."'";
+                                        $result = mysqli_query($con, $sql);
+                                        if(mysqli_num_rows($result) > 0){
+                                            echo ("<script>alert('Fornecedor já cadastrado');</script>");
+                                        }else{
+                                            $sql = "insert into fornecedores values(null,'$nomefornecedor','$telefone','$email')";
+                                            // echo $sql;
+                                            mysqli_query($con, $sql);
+                                            echo ("<script>alert('Fornecedor cadastrado');</script>");
+                                        }
+                                    }
+                                    $sql = "select * from fornecedores";
+                                    $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
+                                    if(mysqli_num_rows($resultado) > 0) {
+                                        while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
+                                            echo "<tr>";
+                                            echo ("<td>".$row["nomeFornecedor"]."</td>");
+                                            echo ("<td>".$row["telefoneFornecedor"]."</td>");
+                                            echo ("<td>".$row["emailFornecedor"]."</td>");
+                                            echo ("<td><a href='' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+                                            echo ("<td><a href='' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
+                                            echo "</tr>";
+                                        }
+                                    } 
+                                    mysqli_close($con);
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
 		<footer class="page-footer blue darken-4 hide-on-small-only">
 			<div class="row container">
 				<div class="left">
@@ -136,4 +165,3 @@
 		<script src="../js/init.js"></script>
 	</body>
 </html>
-        
