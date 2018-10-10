@@ -10,6 +10,7 @@
 		<link type="text/css" rel="stylesheet" href="../css/style.css"  media="screen,projection"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		
 		<title>Distribuidora Ale</title>
 	</head>
 
@@ -62,6 +63,29 @@
                             <input type="text" name="nome" id="nome" required not null>
                             <label for="nome">Valor</label>
                         </div>
+                        <div class="input-field col s12 m12 l6 xl6">
+							<input type="date" class="datepicker" name="datapagamento" id="datapagamento">
+							<label for="datapagamento">Valor</label>
+                        </div>
+                        <div class="input-field col s12 m12 l6 xl6">
+						<input type="date" class="datepicker" name="datavencimento" id="datavencimento">
+							<label for="datavencimento">Valor</label>
+                        </div>
+						<div class="col s12 m6 l6 xl6" style="text-align: left;">
+							<p>Status de Pagamento:</p>
+							<p>
+								<label>
+									<input name="group1" type="radio" checked />
+									<span>Pago</span>
+								</label>
+							</p>
+							<p>
+								<label>
+									<input name="group1" type="radio" />
+									<span>Não Pago</span>
+								</label>
+							</p>
+						</div>
                     </div>
                     <button type="submit" class="btn waves-effect waves-light blue white-text darken-4 center">Cadastrar</button>
                 </form>

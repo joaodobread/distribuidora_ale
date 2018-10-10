@@ -5,7 +5,7 @@
 			edge: 'left',
 			draggable: true
         });
-        $(".button-collapse").sideNav();
-        $('.datepicker').datepicker();
+        // $(".button-collapse").sideNav();
+        $('.datepicker').pickadate();
     }); // end of document ready
 })(jQuery); // end of jQuery name space
