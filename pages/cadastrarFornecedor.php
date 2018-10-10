@@ -85,7 +85,7 @@ include_once("conexao.php");
                                 <label for="nome">Nome</label>
                             </div>
                             <div class="input-field col s12 m12 l6 xl6">
-                                <input type="tel" placeholder='00 0 0000-0000' pattern="[0-9]{2} [0-9]{1} [0-9]{4}-[0-9]{4}" name="telefone" id="telefone" required not null>
+                                <input type="tel" name="telefone" id="telefone" required not null>
                                 <label for="telefone">Telefone</label>
                             </div>
                             <div class="input-field col s12 m12 l12 xl12">
