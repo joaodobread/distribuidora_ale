@@ -7,6 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="../css/style.css"  media="screen,projection"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="../js/jquery.js"></script>
 		<title>Distribuidora Ale</title>
 	</head>
 	<body>
@@ -57,11 +58,11 @@
 						</div>
 						<div class='input-field col s12 m12 l6 xl6'>
 							<input type='number' min="0.01" step="0.01" max="2500" name='valorvenda' id='valorvenda' required  not null>
-							<label for='valor'>Preço de venda</label>
+							<label for='valorvenda'>Preço de venda</label>
 						</div>
 						<div class='input-field col s12 m12 l6 xl6'>
 							<input type='number' min="0.01" step="0.01" max="2500" name='valorcompra' id='valorcompra' required  not null>
-							<label for='valor'>Preço de compra</label>
+							<label for='valorcompra'>Preço de compra</label>
 						</div>
 						<div class='input-field col s12 m12  l6 xl6'>
 							<input type='number' min='1' name='quantidade' id='quantidade' required not null>
@@ -88,12 +89,15 @@
 			</div>
 		</footer>
 		
+		
+		
 		<script type='text/javascript'>
 			$(document).ready(function(){
 				$("input[name='codigo']").blur(function(){
 					let $nome_produto = $("input[name='nome']");
 					let $valor = $("input[name='valorvenda']");
 					let $valorc = $("input[name='valorcompra']");
+					console.log($valor, $valorc);
 					$.getJSON('function.php',{ 
 						codigo: $(this).val() 
 					},function( json ){
@@ -104,7 +108,6 @@
 				});
 			});
 		</script>
-		<script src="../js/jquery.js"></script>
 		<script type="text/javascript" src="../js/materialize.min.js"></script>
 		<script src="../js/init.js"></script>
 	</body>

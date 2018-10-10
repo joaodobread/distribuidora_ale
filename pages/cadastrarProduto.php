@@ -79,7 +79,7 @@ include_once("conexao.php");
                 <h4 class="center blue-text text-darken-4">Cadastro de produtos</h4>
                 <div class="divider black"></div>
                 <div class="row"></div>
-                <form action="cadastroProduto.php" method="post" class="center">
+                <form action="cadastrarProduto.php" method="post" class="center">
                     <div class="row">
                         <div class="input-field col s12 m12 l6 xl6">
                             <input type="text" name="codigo" id="codigo" required autofocus not null>
