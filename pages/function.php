@@ -11,6 +11,7 @@
 			$valores['nome_produto'] = $row['nomeProduto'];
 			$valores['valor'] = $row['valoVendaProduto'];
 			$valores['valorc'] = $row['valorCompraProduto'];
+			$valores['qtd'] = $row['qtdProduto'];
 		}
 		return json_encode($valores);
 	}
