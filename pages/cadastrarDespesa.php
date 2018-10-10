@@ -1,6 +1,3 @@
-<?php 
-//include_once("conexao.php");
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -13,7 +10,6 @@
 		
 		<title>Distribuidora Ale</title>
 	</head>
-
 	<body>
 		<header>
 			<nav class="blue darken-4">
@@ -53,36 +49,36 @@
                 <h4 class="center blue-text text-darken-4">Cadastro de Despesa</h4>
                 <div class="divider black"></div>
                 <div class="row"></div>
-                <form action="cadastroProduto.php" method="post" class="center">
+                <form action="cadastrarDespesa.php" method="get" class="center">
                     <div class="row">
                         <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="codigo" id="codigo" required autofocus not null>
+                            <input type="text" name="nome" id="codigo" required autofocus not null>
                             <label for="codigo">Nome</label>
                         </div>
                         <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="nome" id="nome" required not null>
+                            <input type="text" name="valor" id="nome" required not null>
                             <label for="nome">Valor</label>
                         </div>
                         <div class="input-field col s12 m12 l6 xl6">
-							<input type="date" class="datepicker" name="datapagamento" id="datapagamento">
-							<label for="datapagamento">Valor</label>
+							<input type="date" class="datepicker" name="datapagamento" require not null id="datapagamento">
+							<label for="datapagamento">Data Vencimento</label>
                         </div>
                         <div class="input-field col s12 m12 l6 xl6">
 						<input type="date" class="datepicker" name="datavencimento" id="datavencimento">
-							<label for="datavencimento">Valor</label>
+							<label for="datavencimento">Data Pagamento</label>
                         </div>
 						<div class="col s12 m6 l6 xl6" style="text-align: left;">
-							<p>Status de Pagamento:</p>
+							<p>Status de Pagamento:</p>	
 							<p>
 								<label>
-									<input name="group1" type="radio" checked />
-									<span>Pago</span>
+									<input name="group1" value='naopago' type="radio" checked/>
+									<span>Não Pago</span>
 								</label>
 							</p>
 							<p>
 								<label>
-									<input name="group1" type="radio" />
-									<span>Não Pago</span>
+									<input name="group1" value='pago' type="radio"/>
+									<span>Pago</span>
 								</label>
 							</p>
 						</div>
@@ -97,15 +93,64 @@
                     <table class="highlight centered">
                         <thead>
                             <tr>
-                                <th>Código</th>
+                                <!-- <th>Código</th> -->
                                 <th>Nome</th>
                                 <th>Valor</th>
+                                <th>Data Vencimento</th>
+                                <th>Data Pagamento</th>
+                                <th>Status de Pagamento</th>
                                 <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+							<?php
+								include("conexao.php");
+								if(isset($_GET['nome'])) {
+								    $nome = ($_GET['nome']);
+								    $valor = ($_GET['valor']);
+								    $datavencimento = ($_GET['datapagamento']);
+									$datapagamento = ($_GET['datavencimento']);
+									$status = ($_GET['group1']);		
+									if($status == 'pago'){
+										$pago = 1;
+									}else{
+										$pago = 0;
+									}				
+									if($datapagamento == '' || $datapagamento == NULL){
+										$sql = "insert into despesas values(null,'$nome',$valor,'$datavencimento',null,$pago)";
+									}else{
+										$sql = "insert into despesas values(null,'$nome',$valor,'$datavencimento','$datapagamento',$pago)";
+									}
+									// echo $sql;
+									mysqli_query($con, $sql);
+									echo ("<script>alert('Despesa cadastrada');</script>");
+								}
+								$sql = "select * from despesas";
+								$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
+								if(mysqli_num_rows($resultado) > 0) {
+									while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
+										echo "<tr>";
+										echo ("<td>".$row["nomeDespesa"]."</td>");
+										echo ("<td>".$row["valorDespesa"]."</td>");
+										echo ("<td>".$row["dataVencimento"]."</td>");
+										if($row["dataPagamento"] == '' || $row["dataPagamento"] == NULL){
+											echo ("<td>Sem data de pagamento</td>");
+										}else{
+											echo ("<td>".$row["dataPagamento"]."</td>");
+										}
+										if($row["pago"] == 1){
+											echo ("<td>Conta já paga</td>");
+										}else{
+											echo ("<td>Não consta pagamento</td>");
+										}
+										echo ("<td><a href='cadastrarDespesas.php?editar=true&id=".$row['idDespesa']." ' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+										echo ("<td><a href='' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
+										echo "</tr>";
+										}
+									} 
+								mysqli_close($con);
+                                ?>
                         </tbody>
                     </table>
                 </div>

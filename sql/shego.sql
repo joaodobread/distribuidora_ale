@@ -95,11 +95,12 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `shego`.`despesas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `shego`.`despesas` (
-  `idDespesa` INT(11) NOT NULL,
+  `idDespesa` INT(11) NOT NULL AUTO_INCREMENT,
   `nomeDespesa` VARCHAR(200) NOT NULL,
-  `valorDespesa` FLOAT NOT NULL,
+  `valorDespesa` FLOAT (10,2) NOT NULL,
   `dataVencimento` DATE NOT NULL,
-  `dataPagamento` DATE NULL,
+  `dataPagamento` DATE DEFAULT NULL,
+  `pago` BOOLEAN DEFAULT 0,
   PRIMARY KEY (`idDespesa`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
