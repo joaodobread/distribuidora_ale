@@ -50,7 +50,7 @@
 				<h4 class="center blue-text text-darken-4">Inserir no estoque</h4>
 				<div class="divider black"></div>
 				<div class="row"></div>
-				<form action="addEstoque.php" method="post" class="center">
+				<form action="	.php" method="post" class="center">
 					<div class="row">
 						<div class='input-field col s12 m12 l6 xl6'>
 							<input type='text' name='codigo' id='codigo' required autofocus not null>
@@ -64,12 +64,12 @@
 							<input type='number' min="0.01" step="0.01" max="2500" name='valorcompra' id='valorcompra' required  not null>
 							<label for='valorcompra'>Preço de compra</label>
 						</div>
-						<div class='input-field col s12 m12  l6 xl6'>
+						<div class='input-field col s12 m12 l6 xl6'>
 							<input type='number' min='1' name='quantidade' id='quantidade' required not null>
 							<label for='quantidade'>Quantidade (UN)</label>
 						</div>
 						<div class='input-field col s12 m12 l12 xl12'>
-							<input disabled type='text' name='nome' id='nome' placeholder="Nome">
+							<input disabled type='text' name='nome' id='nome' value=''>
 							<!-- <label for='nome'>Nome</label> -->
 						</div>
 					</div>
@@ -88,8 +88,6 @@
 				</div>
 			</div>
 		</footer>
-		
-		
 		
 		<script type='text/javascript'>
 			$(document).ready(function(){
