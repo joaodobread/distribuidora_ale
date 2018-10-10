@@ -47,24 +47,25 @@
 			<div class="row">
 				<?php
 					include_once("./conexao.php");
+					session_start();
 					if(isset($_SESSION['itens'])) {
 						foreach($_SESSION['itens'] as $produtos => $quantidade) {
-							$sql = "select * from produtos where codigoean=".$produtos;
+							$sql = "select * from produtos where eanProduto=".$produtos;
 							$result = mysqli_query($con, $sql);
 							$res = mysqli_fetch_array($result);
-							if(($res['quantidadeproduto'] >= 0)&&($res['quantidadeproduto'] <= 5)) {
+							if(($res['qtdProduto'] >= 0)&&($res['qtdProduto'] <= 5)) {
 								echo "
 								<div class='row'></div>
 								<div class='alert' style='margin:0% 2% 0%;'>
-									<strong>Produto Acabando!</strong> Faça um novo pedido de <strong>".$res['nomeproduto']."</strong> o mais rápido possível.
+									<strong>Produto Acabando!</strong> Faça um novo pedido de <strong>".$res['nomeProduto']."</strong> o mais rápido possível.
 								</div>
 								";
 							}
-							if(($res['quantidadeproduto'] >= 6)&&($res['quantidadeproduto'] <= 10)) {
+							if(($res['qtdProduto'] >= 6)&&($res['qtdProduto'] <= 10)) {
 								echo "
 								<div class='row'></div>
 								<div class='alert warning' style='margin:0% 2% 0%;'>
-									<strong>Produto Acabando!</strong> Faça um novo pedido de <strong>".$res['nomeproduto']."</strong> o mais rápido possível. <b>Ainda resta(m) ".$res['quantidadeproduto']." unidades!</b>
+									<strong>Produto Acabando!</strong> Faça um novo pedido de <strong>".$res['nomeProduto']."</strong> o mais rápido possível. <b>Ainda resta(m) ".$res['qtdProduto']." unidades!</b>
 								</div>
 								";
 							}
@@ -138,8 +139,9 @@
                                         echo "<div class='row'></div>
                                             <div class='col s12 m12 l12 xl12 center'>";
                                                 echo "<form action='finalizaVenda.php' method='post'>
-                                                        <input type='hidden' name='total' value='".$total."'>
-                                                        <input type='submit' class='btn waves-effect waves-light green darken-2 center' value='Finalizar Compra'>
+														<input type='hidden' name='total' value='".$total."'>
+														
+                                                        <button type='submit' class='btn waves-effect waves-light green darken-2 white-text'>Finalizar Compra</button>
                                                     </form>";
                                             echo "</div>";
                                     } elseif (isset($_SESSION['itens'])) {
@@ -175,7 +177,7 @@
                                                     <div class='col s12 m12 l12 xl12 center'>";
                                                     echo "<form action='finalizaVenda.php' method='post'>
                                                         <input type='hidden' name='total' value='".$total."'>
-                                                        <input type='submit' class='btn waves-effect waves-light green darken-2 center' value='Finalizar Compra'>
+                                                        <button type='submit' class='btn waves-effect waves-light green darken-2 white-text'>Finalizar Compra</button>
                                                     </form>";
                                                     echo "</div>";
                                             }
@@ -192,7 +194,7 @@
                 </div>
             </div>
 		</main>
-
+								
 		<footer class="page-footer blue darken-4 hide-on-small-only">
 			<div class="row container">
 				<div class="left">

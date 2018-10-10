@@ -100,3 +100,7 @@ tr {
 .sidenav {
     width: 260px;
 }
+
+.divider {
+    background-color: black;
+}
