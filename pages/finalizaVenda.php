@@ -52,52 +52,63 @@
                             <div class="divider"></div>
                             <div class="row"></div>
                             <div class="col s12 m12 l12 xl12">
-                                <?php
-									include_once("./conexao.php");
-									session_start();
-                                    if(isset($_POST['total'])) {
-                                        echo       "<table class='centered highlight'>
-                                        <thead>
-                                          <tr>
-                                              <th>Código</th>
-                                              <th>Quantidade</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>";
-											foreach ($_SESSION['itens'] as $produto => $quantidade) {
-												$sql = "insert into vendas values (null, '".$produto."', '".$_SESSION['id']."','".$quantidade."','".date("Y-m-d")."')";
-												$exec = true;
-												$query = mysqli_query($con, $sql);
-												echo "<tr>
-														<td>".$produto."</td>
-														<td>".$quantidade."</td>
-													</tr>";
-												if($query) {
-													$exec = true;
-												} else {
-													$exec = false;
-												}
-											
+								<form action="finalizaVenda.php" method="post">
+									<?php
+										include_once("./conexao.php");
+										session_start();
+										if(isset($_POST['total'])) {
+											echo       "<table class='centered highlight'>
+											<thead>
+											<tr>
+												<th>Código</th>
+												<th>Quantidade</th>
+											</tr>
+											</thead>
+											<tbody>";
+												// foreach ($_SESSION['itens'] as $produto => $quantidade) {
+												// 	$sql = "insert into venda values (null, '".$produto."', '".$_SESSION['id']."','".$quantidade."','".date("Y-m-d")."')";
+												// 	$exec = true;
+												// 	$query = mysqli_query($con, $sql);
+												// 	echo "<tr>
+												// 			<td>".$produto."</td>
+												// 			<td>".$quantidade."</td>
+												// 		</tr>";
+												// 	if($query) {
+												// 		$exec = true;
+												// 	} else {
+												// 		$exec = false;
+												// 	}
 												
-												$sql = "update produtos set qtdProduto = qtdProduto-$quantidade where eanProduto=$produto";
-												$query = mysqli_query($con, $sql);
-											}
-										echo "</tbody>
-										</table>";
-                                            echo "<div class='row blue darken-2 white-text' style='padding:0.3%; '>
-                                                    <h5>Total = R$".$_POST['total']."</h5>
-                                                </div>";
-										if($exec) {
-											echo "<script>alert('Venda realizada com sucesso!')</script>";
+												// 	$sql = "update produtos set qtdProduto = qtdProduto-$quantidade where eanProduto=$produto";
+												// 	$query = mysqli_query($con, $sql);
+												// }
+											echo "</tbody>
+											</table>";
+												echo "<div class='row blue-text text-darken-4' style='padding:0.3%; '>
+														<h5>Total = R$".$_POST['total']."</h5>
+													</div>";
+											// if($exec) {
+											// 	echo "<script>alert('Venda realizada com sucesso!')</script>";
+											// }
 										}
-                                    }
-                                ?>
-                            </div>
-                            <div class="row"></div>
-                            <div class="row center">
-                                <?php unset($_SESSION['itens']);?>
-                                <a href="venda.php" class="btn waves-effect waves-light blue darken-2 white-text">Finalizar</a>
-                            </div>
+									?>
+								</div>
+								<div class="row"></div>
+								<div class="row">
+									<div class="input-field col s12 m6 l6 xl6">
+										<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+										<label for="valor">Preço de compra (R$)</label>
+									</div>
+									<div class="input-field col s12 m6 l6 xl6">
+										<input type="text" id="autocomplete-input" class="autocomplete">
+										<label for="autocomplete-input">Cliente</label>
+									</div>
+								</div>
+								<div class="row center">
+									<?php //unset($_SESSION['itens']);?>
+									<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
+								</div>
+							</form>
                         </div>
                     </div>
                 </div>
@@ -115,6 +126,28 @@
 			</div>
 		</footer>
 
+
+		<script>
+			$(document).ready(function(){
+				$('input.autocomplete').autocomplete({
+					data: {
+						<?php
+							$sql = "select * from clientes";
+							$resultf = mysqli_query($con, $sql);
+							while($rowf = mysqli_fetch_array($resultf,MYSQLI_ASSOC)) {
+								$valor = (string)$rowf['nomeCliente'];
+								echo ($valor.": null,");
+								
+							}
+							echo ("'': null");
+						?>
+						// "Apple": null,
+						// "Microsoft": null,
+						// "Google": 'https://placehold.it/250x250'
+					},
+				});
+			});
+		</script>
 		<script type="text/javascript" src="../js/materialize.min.js"></script>
 		<script src="../js/init.js"></script>
     </body>

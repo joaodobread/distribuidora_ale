@@ -108,10 +108,7 @@ include_once("conexao.php");
                                     $select = "select * from fornecedores";
                                     $resultf = mysqli_query($con, $select);
                                     while($rowf = mysqli_fetch_array($resultf,MYSQLI_ASSOC)) {
-                                        echo("
-                                             <option value='".$rowf['idFornecedor']."'>".$rowf['nomeFornecedor']."</option>
-                                            ");
-                                            
+                                        echo("<option value='".$rowf['idFornecedor']."'>".$rowf['nomeFornecedor']."</option>");
                                     }
                                 ?>
                             </select>
@@ -153,8 +150,7 @@ include_once("conexao.php");
                                     if(mysqli_num_rows($result) > 0){
                                         echo ("<script>alert('Produto já cadastrado');</script>");
                                     }else{
-                                        $sql = "insert into produtos values(null,$fornecedor,'$codigoean','$nomeproduto',$valorcompra,$valorvenda,$quantidade)";
-                                        // echo $sql;
+                                        $sql = "insert into produtos values(null,$fornecedor,'$codigoean','$nomeproduto',$quantidade,$valorcompra,$valorvenda)";
                                         mysqli_query($con, $sql);
                                         echo ("<script>alert('Produto cadastrado');</script>");
                                     }

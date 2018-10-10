@@ -64,15 +64,15 @@
 							<input type='number' min="0.01" step="0.01" max="2500" name='valorcompra' id='valorcompra' required  not null>
 							<label for='valorcompra'>Preço de compra</label>
 						</div>
-						<div style="font: black;" class='input-field col s12 m12 l6 xl6'>
-							<input type='number' min='1' disabled name='quantidadeemestoque' id='quantidadeemestoque' required not null>
-							<!-- <label for='quantidadeemestoque'>Quantidade em estoque(UN)</label> -->
-						</div>
 						<div class='input-field col s12 m12 l6 xl6'>
 							<input type='number' min='1' name='quantidade' id='quantidade' required not null>
 							<label for='quantidade'>Quantidade (UN)</label>
 						</div>
-						<div class='input-field col s12 m12 l12 xl12'>
+						<div style="font: black;" class='input-field col s12 m12 l6 xl6'>
+							<input type='text' min='1' disabled name='quantidadeemestoque' id='quantidadeemestoque' required not null>
+							<!-- <label for='quantidadeemestoque'>Quantidade em estoque(UN)</label> -->
+						</div>
+						<div class='input-field col s12 m12 l6 xl6'>
 							<input disabled type='text' name='nome' id='nome' value=''>
 							<label for='nome'>Nome</label>
 						</div>
