@@ -80,11 +80,12 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `shego`.`despesas` ;
 
 CREATE TABLE IF NOT EXISTS `shego`.`despesas` (
-  `idDespesa` INT(11) NOT NULL,
+  `idDespesa` INT(11) NOT NULL AUTO_INCREMENT,
   `nomeDespesa` VARCHAR(200) NOT NULL,
   `valorDespesa` FLOAT NOT NULL,
   `dataVencimento` DATE NOT NULL,
   `dataPagamento` DATE NULL,
+  `status` BOOLEAN DEFAULT 0,
   PRIMARY KEY (`idDespesa`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -155,7 +156,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `shego`.`venda` ;
 
 CREATE TABLE IF NOT EXISTS `shego`.`venda` (
-  `idvenda` INT NOT NULL,
+  `idvenda` INT NOT NULL AUTO_INCREMENT,
   `clientes_idClientes` INT NOT NULL,
   `produtos_idProduto` INT(11) NOT NULL,
   `qtd` INT NOT NULL,
