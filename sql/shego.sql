@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `shego`.`produtos` (
   `nomeProduto` VARCHAR(200) NOT NULL,
   `qtdProduto` INT(11) NOT NULL,
   `valorCompraProduto` FLOAT NOT NULL,
-  `valoVendaProduto` FLOAT NOT NULL,
+  `valorVendaProduto` FLOAT NOT NULL,
   PRIMARY KEY (`idProduto`),
   UNIQUE INDEX `eanProduto_UNIQUE` (`eanProduto` ASC),
   INDEX `fk_produtos_1_idx` (`idFornecedor` ASC),
