@@ -68,7 +68,7 @@
 								$total = 0;
 								include_once("conexao.php");
 								// $sql = "select * from produtos order by produtos.nomeProduto asc";
-                                $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valoVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";							
+                                $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valorVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";							
 								$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
 								if(!isset($_POST['nomeProduto']) || $nome == '' ){
 									if(mysqli_num_rows($resultado) > 0) {
@@ -80,7 +80,7 @@
 												echo ("<td>".$row["nomeProduto"]."</td>");
 												echo ("<td>".$row["qtdProduto"]."</td>");
 												echo ("<td>".$row["valorCompraProduto"]."</td>");
-												echo ("<td>".$row["valoVendaProduto"]."</td>");
+												echo ("<td>".$row["valorVendaProduto"]."</td>");
 												// if($_SESSION['cargo'] != "VENDEDOR"){
 													echo ("<td><a href='editarProduto.php?id=".$row["idProduto"]."' class='btn waves-effect waves-light yellow black-text'>Editar</a></td>");
 								           			echo ("<td><a href='deletarProduto.php?id=".$row["idProduto"]."' class='btn waves-effect waves-light red black-text'>Exluir</a></td>");

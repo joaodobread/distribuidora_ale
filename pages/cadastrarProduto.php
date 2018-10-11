@@ -155,7 +155,7 @@ include_once("conexao.php");
                                         echo ("<script>alert('Produto cadastrado');</script>");
                                     }
                                 }
-                                $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valoVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";
+                                $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valorVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";
                                 $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
                                 if(mysqli_num_rows($resultado) > 0) {
                                     while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
@@ -165,7 +165,7 @@ include_once("conexao.php");
                                             echo ("<td>".$row["nomeProduto"]."</td>");
                                             echo ("<td>".$row["qtdProduto"]."</td>");
                                             echo ("<td>".$row["valorCompraProduto"]."</td>");
-                                            echo ("<td>".$row["valoVendaProduto"]."</td>");
+                                            echo ("<td>".$row["valorVendaProduto"]."</td>");
                                             echo ("<td><a href='' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
                                             echo ("<td><a href='' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
                                             echo "</tr>";

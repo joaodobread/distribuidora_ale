@@ -106,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `shego`.`usuarios` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+INSERT INTO usuarios VALUES (null,'admin','admin','admin','ADMINISTRADOR');
 
 -- -----------------------------------------------------
 -- Table `shego`.`dinheiro`
