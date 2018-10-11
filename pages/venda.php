@@ -126,11 +126,11 @@
                                                         $sql = "select * from produtos where eanProduto=".$produtos;
                                                         $result = mysqli_query($con, $sql);
                                                         $res = mysqli_fetch_array($result);
-                                                        $total = $total + $quantidade * floatval($res['valoVendaProduto']);
+                                                        $total = $total + $quantidade * floatval($res['valorVendaProduto']);
                                                         echo"<tr>
                                                                 <td>".$res['nomeProduto']."</td>
                                                                 <td>".$quantidade."</td>
-                                                                <td>".$res['valoVendaProduto']."</td>
+                                                                <td>".$res['valorVendaProduto']."</td>
                                                                 <td><a href='remover.php?id=".$res['eanProduto']."' class='btn waves-effect waves-light red darken-2 white-text'>Remover</a></td>
                                                             </tr>";
                                                     }
@@ -163,11 +163,11 @@
                                                         $sql = "select * from produtos where eanProduto=".$produtos;
                                                         $result = mysqli_query($con, $sql);
                                                         $res = mysqli_fetch_array($result);
-                                                        $total = $total + $quantidade * floatval($res['valoVendaProduto']);
+                                                        $total = $total + $quantidade * floatval($res['valorVendaProduto']);
                                                         echo"<tr>
                                                                 <td>".$res['nomeProduto']."</td>
                                                                 <td>".$quantidade."</td>
-                                                                <td>".$res['valoVendaProduto']."</td>
+                                                                <td>".$res['valorVendaProduto']."</td>
                                                                 <td><a href='remover.php?id=".$res['eanProduto']."' class='btn waves-effect waves-light red darken-2 white-text'>Remover</a></td>
                                                             </tr>";
                                                     }

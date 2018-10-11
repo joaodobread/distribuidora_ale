@@ -57,36 +57,34 @@
 										include_once("./conexao.php");
 										session_start();
 										if(isset($_POST['total'])) {
-											echo       "<table class='centered highlight'>
-											<thead>
-											<tr>
-												<th>Código</th>
-												<th>Quantidade</th>
-											</tr>
-											</thead>
-											<tbody>";
-												// foreach ($_SESSION['itens'] as $produto => $quantidade) {
-												// 	$sql = "insert into venda values (null, '".$produto."', '".$_SESSION['id']."','".$quantidade."','".date("Y-m-d")."')";
-												// 	$exec = true;
-												// 	$query = mysqli_query($con, $sql);
-												// 	echo "<tr>
-												// 			<td>".$produto."</td>
-												// 			<td>".$quantidade."</td>
-												// 		</tr>";
-												// 	if($query) {
-												// 		$exec = true;
-												// 	} else {
-												// 		$exec = false;
-												// 	}
-												
-												// 	$sql = "update produtos set qtdProduto = qtdProduto-$quantidade where eanProduto=$produto";
-												// 	$query = mysqli_query($con, $sql);
-												// }
-											echo "</tbody>
-											</table>";
-												echo "<div class='row blue-text text-darken-4' style='padding:0.3%; '>
-														<h5>Total = R$".$_POST['total']."</h5>
-													</div>";
+											echo "<table class='centered highlight'>
+														<thead>
+															<tr>
+																<th>Código</th>
+																<th>Quantidade</th>
+															</tr>
+														</thead>
+														<tbody>";
+															// foreach ($_SESSION['itens'] as $produto => $quantidade) {
+															// 	$sql = "insert into venda values (null, '".$produto."', '".$_SESSION['id']."','".$quantidade."','".date("Y-m-d")."')";
+															// 	$exec = true;
+															// 	$query = mysqli_query($con, $sql);
+															// 	echo "<tr>
+															// 			<td>".$produto."</td>
+															// 			<td>".$quantidade."</td>
+															// 		</tr>";
+															// 	if($query) {
+															// 		$exec = true;
+															// 	} else {
+															// 		$exec = false;
+															// 	}
+															
+															// 	$sql = "update produtos set qtdProduto = qtdProduto-$quantidade where eanProduto=$produto";
+															// 	$query = mysqli_query($con, $sql);
+															// }
+														echo "</tbody>
+													</table>";
+												echo "<div class='row blue-text text-darken-4' style='padding:0.3%; '><h5>Total = R$".$_POST['total']."</h5></div>";
 											// if($exec) {
 											// 	echo "<script>alert('Venda realizada com sucesso!')</script>";
 											// }

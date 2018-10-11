@@ -22,7 +22,7 @@
 <body>
 <form action='despesas.php' method='get'>
     <select name="data" id="mes">
-        <option value="0"disabled selected >--Mês--</option>
+        <option value="0"disabled selected>--Mês--</option>
         <option value="1">Janeiro</option>
         <option value="2">Fevereiro</option>
         <option value="3">Março</option>
