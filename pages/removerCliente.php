@@ -9,17 +9,24 @@
     }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Remover: "<?php echo $row['nomeCliente'] ?>"?</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
-</head>
-<body>
-    <form action="remover"></form>
-</body>
-</html>
+<form action="cadastrarFornecedor.php" method="get">
+    Deseja remover: "<?php echo $row['nomeCliente'] ?>"?
+    <a href='removerCliente.php?id=<?php echo ($_GET['id'])?>&remove=1'>Sim</a>
+    <a href='removerCliente.php?id=<?php echo ($_GET['id'])?>&remove=0'>Não</a>
+</form>
+
+<?php
+    if(isset($_GET['remove'])){
+        if($_GET['remove'] == '1'){
+            $sql = "delete from clientes where idClientes = ".$_GET['id']."";
+            mysqli_query($con,$sql);
+            echo("<script type='text/javascript'>alert('Removido')</script>");
+            header("location: cadastrarCliente.php");
+            // echo $sql;
+        }
+        if($_GET['remove'] == '0'){
+            header("location: cadastrarCliente.php");
+        }
+    }
+?>
+
