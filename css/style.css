@@ -7,40 +7,15 @@ ul#sidenav-1 {
     background-color: #0D47A1 !important;
 }
 
-
-/* ul#sidenav-1 li a.activeLi i.material-icons {
-    color: #0D47A1;
-    background-color: white !important;
-} */
-
 ul#sidenav-1 li a, ul#sidenav-1 li a i.material-icons {
     color: white;
     background-color: #0D47A1 !important;
 }
 
-/* ul li a.activeLi {
-    color:white;
-    background-color: #0D47A1;
-} */
-
-/* ul li > .activeLi {
-    background-color: white;
-} */
-
-/* ul li a.activeLi i.material-icons {
-    color:white;
-    background-color: #0D47A1;
-} */
-
-/* ul li a.activeLi:hover {
-    color:#0D47A1;
-    background-color: #cccccc;
-} */
-
-/* ul li a.activeLi:hover i.material-icons {
-    color:#0D47A1;
-    background-color: #cccccc;
-} */
+ul#sidenav-1 li:hover a, ul#sidenav-1 li:hover a i.material-icons{
+    color: #0D47A1;
+    background-color: #ccc !important;
+}
 
 ul li a i.material-icons.left {
     margin-right: 15px;
