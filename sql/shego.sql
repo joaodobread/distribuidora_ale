@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `shego`.`venda` (
   `qtd` INT NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
   `id_tipo` INT NOT NULL,
-  `date` DATE NULL,
+  `dataVenda` DATE NULL,
   `total` FLOAT(10,2) NULL,
   PRIMARY KEY (`idvenda`, `clientes_idClientes`, `produtos_idProduto`),
   INDEX `fk_venda_clientes1_idx` (`clientes_idClientes` ASC),

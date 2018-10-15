@@ -92,7 +92,7 @@
 										<input disabled type="text" name="nome" id="nome" placeholder="Nome">
 									</div>
 									<div class="input-field col s12 m12 l6 xl6">
-										<input disabled type="number" min="0.01" step="0.01" max="2500" name="valor" id="valor" readonly="true" placeholder="Valor">
+										<input type="number" min="0.01" step="0.01" max="2500" name="valor" id="valor" placeholder="Valor">
 									</div>
 								</div>
 								<div class="row">
