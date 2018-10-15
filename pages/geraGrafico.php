@@ -11,7 +11,7 @@
           $a = 0;
           $vetor[$i]=$a;
         }else{
-          $veotor[$i] = $row['sum(total)'];
+          $vetor[$i] = $row['sum(total)'];
         }
     }
     $despesas = array();
@@ -20,6 +20,12 @@
       $result = mysqli_query($con,$sql);
       $row = mysqli_fetch_array($result);
       $despesas[$i] = $row['sum(valorDespesa)'];
+      if($despesas[$i] == '' or $despesas[$i] == Null){
+        $a = 0;
+        $despesas[$i]=$a;
+      }else{
+        $despesas[$i] = $row['sum(total)'];
+      }
   }
 ?>
 
