@@ -42,6 +42,7 @@
 					<li><a href="./estoque.php"><i class="material-icons left">storage</i>Estoque</a></li>
 					<li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
 					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
+					<li><a href="./geraGrafico.php"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
 				</ul>
 			</div>
 			<div class="row">
