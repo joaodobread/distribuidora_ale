@@ -32,7 +32,7 @@
 		<main>
 			<div class="row">
 				<ul id="sidenav-1" class="sidenav sidenav-fixed grey lighten-5">
-					<li><a class="subheader blue darken-4 white-text">Menu</a></li>
+					<li class="subheader white-text center">Menu</li>
 					<div class="row"></div>
 					<li><a href="./addEstoque.php"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
 					<li><a href="./cadastrarCliente.php"><i class="material-icons left">face</i>Cadastrar Cliente</a></li>

@@ -7,7 +7,18 @@
 		<link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Login</title>
+		<style>
+			header, main, footer {
+				padding-left: 0;
+			}
+				
+			@media only screen and (max-width : 992px) {
+				header, main, footer {
+					padding-left: 0;
+				}
+			}
+		</style>
+		<title>Distribuidora Ale - Login</title>
 	</head>
 	<body>
 		<header>
@@ -20,7 +31,7 @@
 
 		<main class='bg'>
 			<div id="index-banner" class="parallax-container ">
-				<div class="section no-pad-bot center-align" style="top: 50%; left: 50%; margin-top:5%;">
+				<div class="section no-pad-bot center-align" style="top: 50%; left: 50%; margin-top:10%;">
 					<div class="container">
 						<div class="row">
 							<div class="col s12 m6 l6 xl6 offset-xl3 offset-l3 grey lighten-3">
@@ -88,10 +99,8 @@
 					$_SESSION['loginUsuario'] = $field['nomeUsuario'];
 					$_SESSION['cargo'] = $field['cargoUsuario'];
 					$_SESSION['id'] = $field['idUsuarios'];
-					if ($_SESSION['cargo'] === "VENDEDOR") {
-						header("location: pages/func.php");
-					} else {
-						header("location: pages/admin.php");
+					if ($_SESSION['cargo'] === "ADMINISTRADOR") {
+						header("location: pages/venda.php");
 					}
 				}
 				mysqli_close($con);
