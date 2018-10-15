@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `shego`.`venda` (
   `tipo` VARCHAR(45) NOT NULL,
   `id_tipo` INT NOT NULL,
   `dataVenda` DATE NULL,
+  `mesVenda` INT NOT NULL,
   `total` FLOAT(10,2) NULL,
   PRIMARY KEY (`idvenda`, `clientes_idClientes`, `produtos_idProduto`),
   INDEX `fk_venda_clientes1_idx` (`clientes_idClientes` ASC),
@@ -179,7 +180,6 @@ CREATE TABLE IF NOT EXISTS `shego`.`venda` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
