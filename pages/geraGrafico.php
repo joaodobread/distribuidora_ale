@@ -7,6 +7,12 @@
         $result = mysqli_query($con,$sql);
         $row = mysqli_fetch_array($result);
         $vetor[$i] = $row['sum(total)'];
+        if($vetor[$i] == '' or $vetor[$i] == Null){
+          $a = 0;
+          $vetor[$i]=$a;
+        }else{
+          $veotor[$i] = $row['sum(total)'];
+        }
     }
     $despesas = array();
     for($i = 0; $i < 12; $i++){
