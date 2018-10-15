@@ -8,7 +8,13 @@
         $row = mysqli_fetch_array($result);
         $vetor[$i] = $row['sum(total)'];
     }
-    $despesa = 100;
+    $despesas = array();
+    for($i = 0; $i < 12; $i++){
+      $sql = "select sum(valorDespesa) from despesas where (MONTH(dataVencimento) = $i+1 and YEAR(dataVencimento) = $ano);";
+      $result = mysqli_query($con,$sql);
+      $row = mysqli_fetch_array($result);
+      $despesas[$i] = $row['sum(valorDespesa)'];
+  }
 ?>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -18,18 +24,18 @@
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ["Meses", "Valor das vendas R$", { role: "style" } ,'Valor das despesas R$',{role:"style"}, 'Lucro em R$', {role: "style"} ],
-        ["Janeiro",   <?php echo ($vetor[0]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[0]-$despesa); ?>,'#2E7D32'],
-        ["Feveiro",   <?php echo ($vetor[1]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[1]-$despesa); ?>,'#2E7D32'],
-        ["Março",     <?php echo ($vetor[2]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[2]-$despesa); ?>,'#2E7D32'],
-        ["Abril",     <?php echo ($vetor[3]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[3]-$despesa); ?>,'#2E7D32'],
-        ["Maio",      <?php echo ($vetor[4]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[4]-$despesa); ?>,'#2E7D32'],
-        ["Junho",     <?php echo ($vetor[5]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[5]-$despesa); ?>,'#2E7D32'],
-        ["Julho",     <?php echo ($vetor[6]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[6]-$despesa); ?>,'#2E7D32'],
-        ["Agosto",    <?php echo ($vetor[7]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[7]-$despesa); ?>,'#2E7D32'],
-        ["Setembro",  <?php echo ($vetor[8]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[8]-$despesa); ?>,'#2E7D32'],
-        ["Outubro",   <?php echo ($vetor[9]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[9]-$despesa); ?>,'#2E7D32'],
-        ["Novembro",  <?php echo ($vetor[10]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[10]-$despesa); ?>,'#2E7D32'],
-        ["Dezembro",  <?php echo ($vetor[11]); ?>, "#0D47A1", <?php echo($despesa); ?> ,'#d0181e', <?php echo($vetor[11]-$despesa); ?>,'#2E7D32']
+        ["Janeiro",   <?php echo ($vetor[0]); ?>, "#0D47A1", <?php echo($despesas[0]); ?> ,'#d0181e', <?php echo(($vetor[0]-$despesas[0])); ?>,'#2E7D32'],
+        ["Feveiro",   <?php echo ($vetor[1]); ?>, "#0D47A1", <?php echo($despesas[1]); ?> ,'#d0181e', <?php echo(($vetor[1]-$despesas[1])); ?>,'#2E7D32'],
+        ["Março",     <?php echo ($vetor[2]); ?>, "#0D47A1", <?php echo($despesas[2]); ?> ,'#d0181e', <?php echo(($vetor[2]-$despesas[2])); ?>,'#2E7D32'],
+        ["Abril",     <?php echo ($vetor[3]); ?>, "#0D47A1", <?php echo($despesas[3]); ?> ,'#d0181e', <?php echo(($vetor[3]-$despesas[3])); ?>,'#2E7D32'],
+        ["Maio",      <?php echo ($vetor[4]); ?>, "#0D47A1", <?php echo($despesas[4]); ?> ,'#d0181e', <?php echo(($vetor[4]-$despesas[4])); ?>,'#2E7D32'],
+        ["Junho",     <?php echo ($vetor[5]); ?>, "#0D47A1", <?php echo($despesas[5]); ?> ,'#d0181e', <?php echo(($vetor[5]-$despesas[5])); ?>,'#2E7D32'],
+        ["Julho",     <?php echo ($vetor[6]); ?>, "#0D47A1", <?php echo($despesas[6]); ?> ,'#d0181e', <?php echo(($vetor[6]-$despesas[6])); ?>,'#2E7D32'],
+        ["Agosto",    <?php echo ($vetor[7]); ?>, "#0D47A1", <?php echo($despesas[7]); ?> ,'#d0181e', <?php echo(($vetor[7]-$despesas[7])); ?>,'#2E7D32'],
+        ["Setembro",  <?php echo ($vetor[8]); ?>, "#0D47A1", <?php echo($despesas[8]); ?> ,'#d0181e', <?php echo(($vetor[8]-$despesas[8])); ?>,'#2E7D32'],
+        ["Outubro",   <?php echo ($vetor[9]); ?>, "#0D47A1", <?php echo($despesas[9]); ?> ,'#d0181e', <?php echo(($vetor[9]-$despesas[9])); ?>,'#2E7D32'],
+        ["Novembro",  <?php echo ($vetor[10]); ?>, "#0D47A1", <?php echo($despesas[10]); ?> ,'#d0181e', <?php echo($vetor[10]-$despesas[10]); ?>,'#2E7D32'],
+        ["Dezembro",  <?php echo ($vetor[11]); ?>, "#0D47A1", <?php echo($despesas[11]); ?> ,'#d0181e', <?php echo($vetor[11]-$despesas[11]); ?>,'#2E7D32']
       ]);
 
       var view = new google.visualization.DataView(data);
