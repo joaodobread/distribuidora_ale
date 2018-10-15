@@ -131,22 +131,24 @@
 								$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
 								if(mysqli_num_rows($resultado) > 0) {
 									while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
+										$novaData = explode('-',$row["dataPagamento"]);
+										$novaDataV = explode('-',$row["dataVencimento"]);
 										echo "<tr>";
 											echo ("<td>".$row["nomeDespesa"]."</td>");
 											echo ("<td>".$row["valorDespesa"]."</td>");
-											echo ("<td>".$row["dataVencimento"]."</td>");
+											echo ("<td>".$novaDataV[2]."-".$novaDataV[1]."-".$novaDataV[0]."</td>");
 											if($row["dataPagamento"] == '' || $row["dataPagamento"] == NULL){
 												echo ("<td>Sem data de pagamento</td>");
 											}else{
-												echo ("<td>".$row["dataPagamento"]."</td>");
+												echo ("<td>".$novaData[2]."-".$novaData[1]."-".$novaData[0]."</td>");
 											}
-											if($row["pago"] == 1){
+											if($row["status"] == 1){
 												echo ("<td>Conta já paga</td>");
 											}else{
 												echo ("<td>Não consta pagamento</td>");
 											}
-											echo ("<td><a href='cadastrarDespesas.php?editar=true&id=".$row['idDespesa']." ' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
-											echo ("<td><a href='' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
+											echo ("<td><a href='cadastrarDespesas.php?id=".$row['idDespesa']." ' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+											echo ("<td><a href='removeDespesa.php?id=".$row['idDespesa']."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
 										echo "</tr>";
 										}
 									} 
