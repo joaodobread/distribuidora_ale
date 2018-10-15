@@ -1,25 +1,28 @@
-ul li a.activeLi {
-    color:white;
-    background-color: #0D47A1;
+ul#sidenav-1 li a.activeLi,  ul#sidenav-1 li a.activeLi i.material-icons{
+    color: rgb(11, 54, 119);
+    background-color: white !important;
 }
 
-ul li a.activeLi i.material-icons {
-    color:white;
-    background-color: #0D47A1;
+ul#sidenav-1 li a.subheader{
+    background-color: #0d47a1 !important;
+}
+
+ul#sidenav-1 {
+    background-color: rgb(11, 54, 119) !important;
+}
+
+ul#sidenav-1 li a, ul#sidenav-1 li a i.material-icons {
+    color: white;
+    background-color: rgb(11, 54, 119) !important;
+}
+
+ul#sidenav-1 li:hover a, ul#sidenav-1 li:hover a i.material-icons{
+    color: rgb(11, 54, 119);
+    background-color: #ccc !important;
 }
 
 ul li a i.material-icons.left {
     margin-right: 15px;
-}
-
-ul li a.activeLi:hover {
-    color:#0D47A1;
-    background-color: #cccccc;
-}
-
-ul li a.activeLi:hover i.material-icons {
-    color:#0D47A1;
-    background-color: #cccccc;
 }
 
 body {
@@ -94,6 +97,7 @@ tr {
 }
 
 .subheader {
+    background-color: #0d47a1 !important;
     font-size:1.64em !important;
 }
 

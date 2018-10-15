@@ -31,7 +31,7 @@
 
 		<main>
 			<div class="row">
-				<ul id="sidenav-1" class="sidenav sidenav-fixed grey lighten-5">
+				<ul id="sidenav-1" class="sidenav sidenav-fixed blue darken-4">
 					<li><a class="subheader blue darken-4 white-text">Menu</a></li>
 					<div class="row"></div>
 					<li><a href="./addEstoque.php" class="activeLi"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
