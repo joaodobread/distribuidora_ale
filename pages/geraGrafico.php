@@ -1,6 +1,6 @@
 <?php
 	include("conexao.php");
-	$ano = $_GET['ano'];
+	
 	$ano = 2018;
 	$vetor = array();
 	for($i = 0; $i < 12; $i++){
@@ -25,7 +25,7 @@
 			$a = 0;
 			$despesas[$i]=$a;
 		}else{
-			$despesas[$i] = $row['sum(total)'];
+			$despesas[$i] = $row['sum(valorDespesa)'];
 		}
 	}
 ?>
@@ -63,12 +63,13 @@
 
 				var view = new google.visualization.DataView(data);
 				view.setColumns([ 0,
+								{ calc: "stringify",
+								    sourceColumn: 0,
+								    type: "string",
+								    role: "annotation" 
+								  },
 								1,
-								// { calc: "stringify",
-								//     sourceColumn: 1,
-								//     type: "string",
-								//     role: "annotation" 
-								//   },
+								
 								2,3,
 								4,  
 								5,
@@ -82,6 +83,7 @@
 				var options = {
 					title: "Valor de vendas e despesas meses do ano.",
 					bar: {groupWidth: "90%"},
+					width:'100%',
 					legend: { position: "bottom" },
 					colors: ['#0D47A1', 'd0181e' ,'#2E7D32']
 				};

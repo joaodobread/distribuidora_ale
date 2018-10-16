@@ -166,7 +166,7 @@ include_once("conexao.php");
                                             echo ("<td>".$row["valorCompraProduto"]."</td>");
                                             echo ("<td>".$row["valorVendaProduto"]."</td>");
                                             echo ("<td><a href='' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
-                                            echo ("<td><a href='' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
+                                            echo ("<td><a href='removerProduto.php?id=".$row['idProduto']."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
                                             echo "</tr>";
                                     }
                                 } 
