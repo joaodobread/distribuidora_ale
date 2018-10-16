@@ -33,6 +33,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<style>
+			#corpo{
+				height: 500px;
+			}
+		</style>
 		<meta charset="UTF-8">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
@@ -63,11 +68,11 @@
 
 				var view = new google.visualization.DataView(data);
 				view.setColumns([ 0,
-								{ calc: "stringify",
-								    sourceColumn: 0,
-								    type: "string",
-								    role: "annotation" 
-								  },
+								// { calc: "stringify",
+								//     sourceColumn: 0,
+								//     type: "string",
+								//     role: "annotation" 
+								//   },
 								1,
 								
 								2,3,
