@@ -88,16 +88,16 @@
 												echo ("<td>".$row["eanProduto"]."</td>");
 												echo ("<td>".$row["nomeProduto"]."</td>");
 												echo ("<td>".$row["qtdProduto"]."</td>");
-												echo ("<td>".$row["valorCompraProduto"]."</td>");
-												echo ("<td>".$row["valorVendaProduto"]."</td>");
+												echo ("<td>".number_format($row["valorCompraProduto"],2,',','.')."</td>");
+												echo ("<td>".number_format($row["valorVendaProduto"],2,',','.')."</td>");
 												// if($_SESSION['cargo'] != "VENDEDOR"){
 													echo ("<td><a href='editarProduto.php?id=".$row["idProduto"]."' class='btn waves-effect waves-light yellow black-text'>Editar</a></td>");
 								           			echo ("<td><a href='deletarProduto.php?id=".$row["idProduto"]."' class='btn waves-effect waves-light red black-text'>Exluir</a></td>");
 												// }
 											echo "</tr>";
-											$total = $total + $row["valorCompraProduto"];
+											$total = $total + $row["valorCompraProduto"]*$row['qtdProduto'];
 										}
-										echo ("<tr><td>Valor total: ".$total."</td></tr>");
+										echo ("<tr><td>Valor total do estoque (R$): ".number_format($total,2,',','.')."</td></tr>");
 									} 
 								}
 								// else{
