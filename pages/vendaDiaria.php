@@ -12,6 +12,12 @@ include_once("conexao.php");
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Distribuidora Ale</title>
 		<style>
+			green{
+				color: green;
+			}
+			red{
+				color:red;
+			}
             .alert {
                 padding: 20px;
                 background-color: #f44336;
@@ -66,12 +72,13 @@ include_once("conexao.php");
 					<li><a href="./addEstoque.php"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
 					<li><a href="./cadastrarCliente.php"><i class="material-icons left">face</i>Cadastrar Cliente</a></li>
 					<li><a href="./cadastrarFornecedor.php"><i class="material-icons left">local_shipping</i>Cadastrar Fornecedor</a></li>
-					<li><a href="./cadastrarProduto.php" class="activeLi"><i class="material-icons left">edit</i>Cadastrar Produto</a></li>
+					<li><a href="./cadastrarProduto.php" ><i class="material-icons left">edit</i>Cadastrar Produto</a></li>
 					<li><a href="./venda.php"><i class="material-icons left">add_shopping_cart</i>Efetuar Venda</a></li>
 					<li><a href="./estoque.php"><i class="material-icons left">storage</i>Estoque</a></li>
 					<li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
 					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
 					<li><a href="./geraGrafico.php"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
+					<li><a href="./vendaDiaria.php" class="activeLi"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 				</ul>
 			</div>
 		    <div class="row" style="margin: 2% 2% 0%;">
@@ -85,18 +92,37 @@ include_once("conexao.php");
                     <table class="highlight centered">
                         <thead>
                             <tr>
-                                <th>Produto</th>
-                                <th>Quantidade</th>
-                                <th>Valor da venda</th>
-                                <th>Tipo do pagamento</th>
-                                <th>Valor de Compra</th>
+                                <th>Número da venda</th>
+                                <!-- <th>Quantidade</th> -->
+                                <!-- <th>Valor da venda</th> -->
+                                <th>Tipo de pagamento</th>
                                 <th>Valor de Venda</th>
-                                <th>Editar</th>
-                                <th>Excluir</th>
+                                <th>Comprador</th>
+                                <th>Pagamento</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+							<?php 
+								include("conexao.php");
+								$sql = "select * from venda inner join clientes on clientes_idClientes = idClientes where dataVenda = '".date('Y-m-d')."' ";
+								$result = mysqli_query($con, $sql);
+								echo("<tr>");
+								$total = 0;
+								while($row = mysqli_fetch_array($result)){
+									echo("<td>".$row['idvenda']."</td>");
+									echo("<td>".$row['tipo']."</td>");
+									echo("<td>".$row['total']."</td>");
+									echo("<td>".$row['nomeCliente']."</td>");
+									if($row['pago'] == 1){
+										echo("<td><green>Efetuado</green></td>");
+									}else{
+										echo("<td><red>Não efetuado</red></td>");
+									}
+									$total = $total+$row['total'];
+								}
+								echo("<tr>");
+								echo("<tr><td>Total vendido (R$):".$total."</td></tr>");
+							?>
                         </tbody>
                     </table>
                 </div>

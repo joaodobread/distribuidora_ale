@@ -52,13 +52,13 @@
 
 			function drawChart() {
 				
-				var dalaLine = new google.visualization.DataTable();
-				dalaLine.addColumn('string', 'Mês');
-				dalaLine.addColumn('number', 'Valor vendido em R$');
-				dalaLine.addColumn('number', 'Despesa em R$');
-				dalaLine.addColumn('number', 'Lucro em R$');
+				var dataLine = new google.visualization.DataTable();
+				dataLine.addColumn('string', 'Mês');
+				dataLine.addColumn('number', 'Valor vendido em R$');
+				dataLine.addColumn('number', 'Despesa em R$');
+				dataLine.addColumn('number', 'Lucro em R$');
 
-				dalaLine.addRows([
+				dataLine.addRows([
 								["Janeiro",   <?php echo ($vendido[0]); ?>, <?php echo($despesas[0]); ?> , <?php echo(($vendido[0]-$despesas[0])); ?>],
 								["Feveiro",   <?php echo ($vendido[1]); ?>, <?php echo($despesas[1]); ?> , <?php echo(($vendido[1]-$despesas[1])); ?>],
 								["Março",     <?php echo ($vendido[2]); ?>, <?php echo($despesas[2]); ?> , <?php echo(($vendido[2]-$despesas[2])); ?>],
@@ -123,7 +123,7 @@
 				
 				<?php 
 					if($grafico == 'line'){
-						echo ("chartLine.draw(dalaLine, google.charts.Line.convertOptions(optionsLine));");
+						echo ("chartLine.draw(dataLine, google.charts.Line.convertOptions(optionsLine));");
 					}else{
 						echo ("chart.draw(viewColumn, optionsColumn);");
 					}
@@ -174,7 +174,7 @@
 						if($grafico == 'line'){
 							echo ('<a href="./geraGrafico.php?tipo=coluna" class="btn waves-effect waves-light blue white-text darken-4 center"><i class="material-icons left">bar_chart</i>Alterar para barras</a>');
 						}else{
-							echo ('<a href="./geraGrafico.php?tipo=line" class="btn waves-effect waves-light blue white-text darken-4 center"><i class="material-icons left">bar_chart</i>Alterar para linhas</a>');
+							echo ('<a href="./geraGrafico.php?tipo=line" class="btn waves-effect waves-light blue white-text darken-4 center"><i class="material-icons left">show_chart</i>Alterar para linhas</a>');
 						}
 					?>
 				</div>

@@ -166,6 +166,7 @@ CREATE TABLE IF NOT EXISTS `shego`.`venda` (
   `dataVenda` DATE NULL,
   `mesVenda` INT NOT NULL,
   `total` FLOAT(10,2) NULL,
+  `pago` BOOLEAN DEFAULT 0,
   PRIMARY KEY (`idvenda`, `clientes_idClientes`, `produtos_idProduto`),
   INDEX `fk_venda_clientes1_idx` (`clientes_idClientes` ASC),
   INDEX `fk_venda_produtos1_idx` (`produtos_idProduto` ASC),

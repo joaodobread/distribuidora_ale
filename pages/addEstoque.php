@@ -132,7 +132,7 @@
         $quant = $_POST['quantidade'];
         $precocompra = $_POST['valorcompra'];
         $precovenda = $_POST['valorvenda'];
-        $sql = "update produtos set qtdProduto = qtdProduto+$quant, valorCompraProduto = $precocompra, valoVendaProduto = $precovenda where eanProduto = $ean";
-        mysqli_query($con, $sql);
+        $sql = "update produtos set qtdProduto = qtdProduto+$quant, valorCompraProduto = $precocompra, valorVendaProduto = $precovenda where eanProduto = $ean";
+		mysqli_query($con, $sql);
     }
 ?>
