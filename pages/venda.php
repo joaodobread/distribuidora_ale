@@ -1,3 +1,7 @@
+<?php 
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -58,7 +62,6 @@
 			<div class="row">
 				<?php
 					include_once("./conexao.php");
-					session_start();
 					if(isset($_SESSION['itens'])) {
 						foreach($_SESSION['itens'] as $produtos => $quantidade) {
 							$sql = "select * from produtos where eanProduto=".$produtos;
