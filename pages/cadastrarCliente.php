@@ -141,7 +141,7 @@
 									$telefone = strtoupper($_POST['telefone']);
 									$email = ($_POST['email']);
 									$endereco = strtoupper($_POST['endereco']);
-									$sql = "update clientes set nomeCliente=$nome, telefoneCliente=$telefone, emailCliente=$email, enderecoCliente=$endereco where idClientes=$id";
+									$sql = "update clientes set nomeCliente='$nome', telefoneCliente='$telefone', emailCliente='$email', enderecoCliente='$endereco' where idClientes=$id";
 									mysqli_query($con, $sql);
 									echo ("<script>alert('Cliente alterado com sucesso!');</script>");
 								} else {

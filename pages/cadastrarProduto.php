@@ -87,44 +87,108 @@ include_once("conexao.php");
                 <h4 class="center blue-text text-darken-4">Cadastro de produtos</h4>
                 <div class="divider black"></div>
                 <div class="row"></div>
-                <form action="cadastrarProduto.php" method="post" class="center">
-                    <div class="row">
-                        <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="codigo" id="codigo" required autofocus not null>
-                            <label for="codigo">Código</label>
-                        </div>
-                        <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="nome" id="nome" required not null>
-                            <label for="nome">Nome</label>
-                        </div>
-                        <div class="input-field col s12 m4 l4 xl4">
-                            <input type="number" min="1" name="quantidade" id="quantidade" required not null>
-                            <label for="quantidade">Quantidade (UN)</label>
-                        </div>
-                        <div class="input-field col s12 m4 l4 xl4">
-                            <input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
-                            <label for="valor">Preço de compra (R$)</label>
-                        </div>
-                        <div class="input-field col s12 m4 l4 xl4">
-                            <input type="number" min="0.01" step="0.01" max="2500" name="valorvenda" id="valor" required not null>
-                            <label for="valor">Preço de venda (R$)</label>
-                        </div>
-                        <div class="input-field col s12 m12 l12 xl12">
-                            <select name='fornecedor'>
-                                <option value="" disabled selected>Selecione um dos fornecedores</option>
-                                <?php
-                                    $select = "select * from fornecedores";
-                                    $resultf = mysqli_query($con, $select);
-                                    while($rowf = mysqli_fetch_array($resultf,MYSQLI_ASSOC)) {
-                                        echo("<option value='".$rowf['idFornecedor']."'>".$rowf['nomeFornecedor']."</option>");
-                                    }
-                                ?>
-                            </select>
-                            <label>Fornecedor</label>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn waves-effect waves-light blue white-text darken-4 center">Cadastrar</button>
-                </form>
+                <?php
+                    include_once("conexao.php");
+                    if(isset($_GET['editar'])) {
+                        if(isset($_GET['id'])) {
+                            $sql = "select * from produtos where idProduto=".$_GET['id'];
+                            // echo ($sql);
+                            $result = mysqli_query($con, $sql);
+                            if(mysqli_num_rows($result) > 0) {
+								while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+                                    echo"
+                                        <form action='cadastrarProduto.php' method='post' class='center'>
+                                            <div class='row'>
+                                            
+                                            <input type='hidden' name='editado'>
+												<input type='hidden' name='id' value='".$row["idProduto"]."'>
+                                                <div class='input-field col s12 m12 l6 xl6'>
+                                                    <input type='text' value='".$row['eanProduto']."' name='codigo' id='codigo' required autofocus not null>
+                                                    <label for='codigo'>Código</label>
+                                                </div>
+                                                <div class='input-field col s12 m12 l6 xl6'>
+                                                    <input type='text' name='nome' value='".$row['nomeProduto']."' id='nome' required not null>
+                                                    <label for='nome'>Nome</label>
+                                                </div>
+                                                <div class='input-field col s12 m4 l4 xl4'>
+                                                    <input type='number' min='1' name='quantidade' value='".$row['qtdProduto']."' id='quantidade' required not null>
+                                                    <label for='quantidade'>Quantidade (UN)</label>
+                                                </div>
+                                                <div class='input-field col s12 m4 l4 xl4'>
+                                                    <input type='number' min='0.01' step='0.01' max='2500' name='valorcompra' value='".$row['valorCompraProduto']."' id='valor' required not null>
+                                                    <label for='valor'>Preço de compra (R$)</label>
+                                                </div>
+                                                <div class='input-field col s12 m4 l4 xl4'>
+                                                    <input type='number' min='0.01' step='0.01' max='2500' name='valorvenda' value='".$row['valorVendaProduto']."' id='valor' required not null>
+                                                    <label for='valor'>Preço de venda (R$)</label>
+                                                </div>
+                                                <div class='input-field col s12 m12 l12 xl12'>
+                                                    <select name='fornecedor'>
+                                                        <option value='' disabled selected>Selecione um dos fornecedores</option>
+                                                        ";
+                                                            $select = 'select * from fornecedores';
+                                                            $resultf = mysqli_query($con, $select);
+                                                            while($rowf = mysqli_fetch_array($resultf,MYSQLI_ASSOC)) {
+                                                                if($row['idFornecedor'] == $rowf['idFornecedor']){
+                                                                    echo("<option value='".$rowf['idFornecedor']."' selected>".$rowf['nomeFornecedor']."</option>");
+                                                                }else{
+                                                                    echo("<option value='".$rowf['idFornecedor']."'>".$rowf['nomeFornecedor']."</option>");
+                                                                }
+                                                            }
+                                                            echo "
+                                                    </select>
+                                                    <label>Fornecedor</label>
+                                                </div>
+                                            </div>
+                                            <button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Salvar</button>
+                                        </form>
+                                    ";
+                                }
+                            }
+                        }
+                    }else{
+                        echo"
+                            <form action='cadastrarProduto.php' method='post' class='center'>
+                                <div class='row'>
+                                    <div class='input-field col s12 m12 l6 xl6'>
+                                        <input type='text' name='codigo' id='codigo' required autofocus not null>
+                                        <label for='codigo'>Código</label>
+                                    </div>
+                                    <div class='input-field col s12 m12 l6 xl6'>
+                                        <input type='text' name='nome' id='nome' required not null>
+                                        <label for='nome'>Nome</label>
+                                    </div>
+                                    <div class='input-field col s12 m4 l4 xl4'>
+                                        <input type='number' min='1' name='quantidade' id='quantidade' required not null>
+                                        <label for='quantidade'>Quantidade (UN)</label>
+                                    </div>
+                                    <div class='input-field col s12 m4 l4 xl4'>
+                                        <input type='number' min='0.01' step='0.01' max='2500' name='valorcompra' id='valor' required not null>
+                                        <label for='valor'>Preço de compra (R$)</label>
+                                    </div>
+                                    <div class='input-field col s12 m4 l4 xl4'>
+                                        <input type='number' min='0.01' step='0.01' max='2500' name='valorvenda' id='valor' required not null>
+                                        <label for='valor'>Preço de venda (R$)</label>
+                                    </div>
+                                    <div class='input-field col s12 m12 l12 xl12'>
+                                        <select name='fornecedor'>
+                                            <option value='' disabled selected>Selecione um dos fornecedores</option>
+                                            ";
+                                                $select = 'select * from fornecedores';
+                                                $resultf = mysqli_query($con, $select);
+                                                while($rowf = mysqli_fetch_array($resultf,MYSQLI_ASSOC)) {
+                                                    echo("<option value='".$rowf['idFornecedor']."'>".$rowf['nomeFornecedor']."</option>");
+                                                }
+                                                echo "
+                                        </select>
+                                        <label>Fornecedor</label>
+                                    </div>
+                                </div>
+                                <button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Cadastrar</button>
+                            </form>
+                            ";
+                        }
+                        ?>
             </div>
             <div class="row" style="margin: 2% 2% 0%;">
                 <h4 class="center blue-text text-darken-4">Produtos Cadastrados</h4>
@@ -145,22 +209,37 @@ include_once("conexao.php");
                         </thead>
                         <tbody>
                             <?php
-                                if(isset($_POST['nome'])) {
+								include("conexao.php");
+								if(isset($_POST['editado'])) {
+                                    $id = $_POST['id'];
                                     $codigoean = strtoupper($_POST['codigo']);
                                     $nomeproduto = strtoupper($_POST['nome']);
                                     $quantidade = strtoupper($_POST['quantidade']);
                                     $valorcompra = strtoupper($_POST['valorcompra']);
                                     $valorvenda = strtoupper($_POST['valorvenda']);
                                     $fornecedor = strtoupper($_POST['fornecedor']);
-                                    //verifica se existe ean cadastrados no banco
-                                    $sql = "select * from produtos where eanProduto = '".$codigoean."'";
-                                    $result = mysqli_query($con, $sql);
-                                    if(mysqli_num_rows($result) > 0){
-                                        echo ("<script>alert('Produto já cadastrado');</script>");
-                                    }else{
-                                        $sql = "insert into produtos values(null,$fornecedor,'$codigoean','$nomeproduto',$quantidade,$valorcompra,$valorvenda)";
-                                        mysqli_query($con, $sql);
-                                        echo ("<script>alert('Produto cadastrado');</script>");
+                                    $sql = "update produtos set idFornecedor='$fornecedor', eanProduto='$codigoean', nomeProduto='$nomeproduto', qtdProduto='$quantidade', valorCompraProduto='$valorcompra', valorVendaProduto='$valorvenda' where idProduto=$id";
+                                    // echo($sql);
+									mysqli_query($con, $sql);
+                                    echo ("<script>alert('Produto alterado com sucesso!');</script>");
+                                } else {
+                                    if(isset($_POST['nome'])) {
+                                        $codigoean = strtoupper($_POST['codigo']);
+                                        $nomeproduto = strtoupper($_POST['nome']);
+                                        $quantidade = strtoupper($_POST['quantidade']);
+                                        $valorcompra = strtoupper($_POST['valorcompra']);
+                                        $valorvenda = strtoupper($_POST['valorvenda']);
+                                        $fornecedor = strtoupper($_POST['fornecedor']);
+                                        //verifica se existe ean cadastrados no banco
+                                        $sql = "select * from produtos where eanProduto = '".$codigoean."'";
+                                        $result = mysqli_query($con, $sql);
+                                        if(mysqli_num_rows($result) > 0){
+                                            echo ("<script>alert('Produto já cadastrado');</script>");
+                                        }else{
+                                            $sql = "insert into produtos values(null,$fornecedor,'$codigoean','$nomeproduto',$quantidade,$valorcompra,$valorvenda)";
+                                            mysqli_query($con, $sql);
+                                            echo ("<script>alert('Produto cadastrado');</script>");
+                                        }
                                     }
                                 }
                                 $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valorVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";
@@ -174,7 +253,7 @@ include_once("conexao.php");
                                             echo ("<td>".$row["qtdProduto"]."</td>");
                                             echo ("<td>".$row["valorCompraProduto"]."</td>");
                                             echo ("<td>".$row["valorVendaProduto"]."</td>");
-                                            echo ("<td><a href='' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+                                            echo ("<td><a href='cadastrarProduto.php?editar=1&id=".$row['idProduto']."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
                                             echo ("<td><a href='removerProduto.php?id=".$row['idProduto']."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
                                             echo "</tr>";
                                     }

@@ -132,7 +132,7 @@ include_once("conexao.php");
                                     $nome = strtoupper($_POST['nome']);
                                     $telefone = strtoupper($_POST['telefone']);
                                     $email = ($_POST['email']);
-                                    $sql = "update fornecedor set nomeFornecedor=$nome, telefoneFornecedor=$telefone, emailFornecedor=$email where idFornecedor=$id";
+                                    $sql = "update fornecedores set nomeFornecedor='$nome', telefoneFornecedor='$telefone', emailFornecedor='$email' where idFornecedor=$id";
                                     mysqli_query($con, $sql);
                                     echo ("<script>alert('Fornecedor alterado com sucesso!');</script>");
                                 } else {

@@ -64,48 +64,69 @@
                     include_once("conexao.php");
 					if(isset($_GET['editar'])) {
 						if(isset($_GET['id'])) {
-                            $sql = "select * from despesas where idDespesa=".$_GET['id'];
+							$sql = "select * from despesas where idDespesa=".$_GET['id'];
+							// echo ($sql);
 							$result = mysqli_query($con, $sql);
 							if(mysqli_num_rows($result) > 0) {
 								while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-									echo "<form action='cadastrarDespesa.php' method='get' class='center'>
+									echo "<form action='cadastrarDespesa.php' method='post' class='center'>
 												<div class='row'>
 													<div class='input-field col s12 m12 l6 xl6'>
 														<input type='text' name='nome' id='codigo' value='".$row['nomeDespesa']."' required autofocus not null>
 														<label for='codigo'>Nome</label>
 													</div>
 													<div class='input-field col s12 m12 l6 xl6'>
-														<input type='text' name='valor' id='nome' value='".$row['nomeDespesa']."' required not null>
+														<input type='text' name='valor' id='nome' value='".$row['valorDespesa']."' required not null>
 														<label for='nome'>Valor</label>
 													</div>
 													<div class='input-field col s12 m12 l6 xl6'>
-														<input type='date' name='datapagamento' id='datapagamento' value='".$row['nomeDespesa']."' require not null >
+														<input type='date' name='datapagamento' id='datapagamento' value='".$row['dataPagamento']."' require not null >
 														<label for='datapagamento'>Data Vencimento</label>
 													</div>
 													<div class='input-field col s12 m12 l6 xl6'>
-														<input type='date' name='datavencimento' id='datavencimento' value='".$row['nomeDespesa']."'>
+														<input type='date' name='datavencimento' id='datavencimento' value='".$row['dataVencimento']."'>
 														<label for='datavencimento'>Data Pagamento</label>
 													</div>
 													<div class='col s12 m6 l6 xl6' style='text-align: left;'>
 														<p>Status de Pagamento:</p>	
-														<p>
-															<label>
-																<input name='group1' value='naopago' type='radio' checked/>
-																<span>Não Pago</span>
-															</label>
-														</p>
-														<p>
-															<label>
-																<input name='group1' value='pago' type='radio'/>
-																<span>Pago</span>
-															</label>
-														</p>
+														";
+														if($row['status'] == 1){
+															echo("
+															<p>
+																<label>
+																	<input name='group1' value='naopago' type='radio' />
+																	<span>Não Pago</span>
+																</label>
+															</p>
+															<p>
+																<label>
+																	<input name='group1' value='pago' type='radio'checked/>
+																	<span>Pago</span>
+																</label>
+															</p>
+															");
+														}else{
+															echo("
+															<p>
+																<label>
+																	<input name='group1' value='naopago' type='radio' checked />
+																	<span>Não Pago</span>
+																</label>
+															</p>
+															<p>
+																<label>
+																	<input name='group1' value='pago' type='radio'/>
+																	<span>Pago</span>
+																</label>
+															</p>");
+														}
+														echo("
 													</div>
 												</div>
 												<input type='hidden' name='editado'>
 												<input type='hidden' name='id' value='".$row["idDespesa"]."'>
-												<button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Cadastrar</button>
-											</form>";
+												<button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Salvar</button>
+											</form>");
 								}
 							}
 						}
@@ -129,34 +150,19 @@
 											<label for='datavencimento'>Data Pagamento</label>
 										</div>
 										<div class='col s12 m6 l6 xl6' style='text-align: left;'>
-											<p>Status de Pagamento:</p>";
-											if($row['status'] == 1) {
-												echo "<p>
-														<label>
-															<input name='group1' value='naopago' type='radio'/>
-															<span>Não Pago</span>
-														</label>
-													</p>
-													<p>
-														<label>
-															<input name='group1' value='pago' type='radio' checked/>
-															<span>Pago</span>
-														</label>
-													</p>";
-											} else {
-												echo "<p>
-														<label>
-															<input name='group1' value='naopago' type='radio' checked/>
-															<span>Não Pago</span>
-														</label>
-													</p>
-													<p>
-														<label>
-															<input name='group1' value='pago' type='radio'/>
-															<span>Pago</span>
-														</label>
-													</p>";
-											}
+											<p>Status de Pagamento:</p>
+											<p>
+												<label>
+													<input name='group1' value='naopago' type='radio' checked/>
+													<span>Não Pago</span>
+												</label>
+											</p>
+											<p>
+												<label>
+													<input name='group1' value='pago' type='radio' />
+													<span>Pago</span>
+												</label>
+											</p>";
 										echo "</div>
 									</div>
 									<button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Cadastrar</button>
@@ -183,24 +189,36 @@
                         <tbody>
 							<?php
 								include("conexao.php");
-								if(isset($_GET['nome'])) {
-								    $nome = ($_GET['nome']);
-								    $valor = ($_GET['valor']);
-								    $datavencimento = ($_GET['datapagamento']);
-									$datapagamento = ($_GET['datavencimento']);
-									$status = ($_GET['group1']);		
-									if($status == 'pago'){
-										$pago = 1;
-									}else{
-										$pago = 0;
-									}				
-									if($datapagamento == '' || $datapagamento == NULL){
-										$sql = "insert into despesas values(null,'$nome',$valor,'$datavencimento',null,$pago)";
-									}else{
-										$sql = "insert into despesas values(null,'$nome',$valor,'$datavencimento','$datapagamento',$pago)";
-									}
+								if(isset($_POST['editado'])) {
+                                    $id = ($_POST['id']);
+                                    $nome = ($_POST['nome']);
+									$valor = ($_POST['valor']);
+									$datavencimento = ($_POST['datapagamento']);
+									$datapagamento = ($_POST['datavencimento']);
+									$status = ($_POST['group1']);
+                                    $sql = "update despesas set nomeDespesa='$nome', valorDespesa=$valor, dataVencimento='$datavencimento', dataPagamento='$datapagamento' where idDespesa=$id";
 									mysqli_query($con, $sql);
-									echo ("<script>alert('Despesa cadastrada');</script>");
+                                    echo ("<script>alert('Despesa alterada com sucesso!');</script>");
+                                } else {
+									if(isset($_GET['nome'])) {
+										$nome = ($_GET['nome']);
+										$valor = ($_GET['valor']);
+										$datavencimento = ($_GET['datapagamento']);
+										$datapagamento = ($_GET['datavencimento']);
+										$status = ($_GET['group1']);		
+										if($status == 'pago'){
+											$pago = 1;
+										}else{
+											$pago = 0;
+										}				
+										if($datapagamento == '' || $datapagamento == NULL){
+											$sql = "insert into despesas values(null,'$nome',$valor,'$datavencimento',null,$pago)";
+										}else{
+											$sql = "insert into despesas values(null,'$nome',$valor,'$datavencimento','$datapagamento',$pago)";
+										}
+										mysqli_query($con, $sql);
+										echo ("<script>alert('Despesa cadastrada');</script>");
+									}
 								}
 
 								$sql = "select * from despesas";
@@ -223,7 +241,7 @@
 											}else{
 												echo ("<td>Não consta pagamento</td>");
 											}
-											echo ("<td><a href='cadastrarDespesas.php?id=".$row['idDespesa']." ' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+											echo ("<td><a href='cadastrarDespesa.php?editar=1&id=".$row['idDespesa']." ' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
 											echo ("<td><a href='removeDespesa.php?id=".$row['idDespesa']."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
 										echo "</tr>";
 										}
