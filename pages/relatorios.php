@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -8,32 +8,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Distribuidora Ale</title>
-		<style>
-            .alert {
-                padding: 20px;
-                background-color: #f44336;
-                color: white;
-            }
-            
-            .alert.warning {
-                background-color: #ff9800;
-            }
-
-            .closebtn {
-                margin-left: 15px;
-                color: white;
-                font-weight: bold;
-                float: right;
-                font-size: 22px;
-                line-height: 20px;
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            .closebtn:hover {
-                color: black;
-            }
-		</style>
 	</head>
 	<body>
 		<header>
@@ -46,17 +20,26 @@
 						<li><a href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 					<ul class="sidenav grey darken-4" id="mobile-demo">
-						<li>Distribuidora Ale</li>
+                        <li class="subheader white-text center">Menu</li>
 						<li style='margin-right: 0%; padding: 0px;'><a class='sidenav-close' href='#!' style='padding: 0px;'><i class='material-icons right white-text'>close</i></a></li>
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
-						<li><a href="./logout.php" class="white-text">Sair</a></li>
+						<li><a class="white-text" href="./addEstoque.php"><i class="material-icons white-text left">assignment</i>Adicionar ao Estoque</a></li>
+                        <li><a class="white-text" href="./cadastrarCliente.php"><i class="material-icons white-text left">face</i>Cadastrar Cliente</a></li>
+                        <li><a class="white-text" href="./cadastrarFornecedor.php" class="activeLi"><i class="material-icons white-text left">local_shipping</i>Cadastrar Fornecedor</a></li>
+                        <li><a class="white-text" href="./cadastrarProduto.php"><i class="material-icons white-text left">edit</i>Cadastrar Produto</a></li>
+                        <li><a class="white-text" href="./venda.php"><i class="material-icons white-text left">add_shopping_cart</i>Efetuar Venda</a></li>
+                        <li><a class="white-text" href="./estoque.php"><i class="material-icons white-text left">storage</i>Estoque</a></li>
+                        <li><a class="white-text" href="./relatorios.php"><i class="material-icons white-text left">description</i>Relatório De Produtos</a></li>
+                        <li><a class="white-text" href="./cadastrarDespesa.php"><i class="material-icons white-text left">attach_money</i>Despesas</a></li>
+                        <li><a class="white-text" href="./geraGrafico.php?tipo=line"><i class="material-icons white-text left">bar_chart</i>Gráficos</a></li>
+						<li><a class="white-text" href="./admin.php" class="white-text">Administrativo</a></li>
+						<li><a class="white-text" href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 				</div>
 			</nav>
 		</header>
 
 		<main>
-            <div class="row">
+			<div class="row">
 				<ul id="sidenav-1" class="sidenav sidenav-fixed grey lighten-5">
 					<li class="subheader white-text center">Menu</li>
 					<div class="row"></div>
@@ -68,18 +51,65 @@
 					<li><a href="./estoque.php"><i class="material-icons left">storage</i>Estoque</a></li>
 					<li><a href="./relatorios.php" class="activeLi"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
 					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
-					<li><a href="./geraGrafico.php"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
+					<li><a href="./geraGrafico.php?tipo=line"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
 				</ul>
 			</div>
-		    <div class="row" style="margin: 2% 2% 0%;">
-                <h4 class="center blue-text text-darken-4">Cadastro de produtos</h4>
-                <div class="divider black"></div>
-				<div class="row"></div>
+			<div class="row" style="margin: 2% 2% 0%;">
+				<h4 class="center blue-text text-darken-4">Estoque</h4>
+				<div class="divider black"></div>
+				<div class="row">
+					<button class="btn waves-effect waves-light blue darken-4 white-text" id="btn"><i class="material-icons left">print</i>Imprimir relatório</button>
+				</div>
+			<div id="print">
 				
-				<div id="chartContainer" style="height: 400px; width: 100%;"></div>
-				
-				
+				<div class='row' >
+					<table border='1' class="highlight centered">
+						<thead>
+							<tr>
+								<th>Fornecedor</th>
+								<th>Código</th>
+								<th>Nome</th>
+								<th>Qtd. em estoque</th>
+								<th>Valor de Compra</th>
+								<th>Valor total do produto em estoque</th>
+								<th>Valor de Venda</th>
+								<th>Valor total de venda *</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$total = 0;
+								include_once("conexao.php");
+								// $sql = "select * from produtos order by produtos.nomeProduto asc";
+                                $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valorVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";							
+								$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
+								if(!isset($_POST['nomeProduto']) || $nome == '' ){
+									if(mysqli_num_rows($resultado) > 0) {
+										// $cargo = $_SESSION['cargo'];
+										while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
+											echo "<tr>";
+												echo ("<td>".$row["nomeFornecedor"]."</td>");
+												echo ("<td>".$row["eanProduto"]."</td>");
+												echo ("<td>".$row["nomeProduto"]."</td>");
+												echo ("<td>".$row["qtdProduto"]."</td>");
+												echo ("<td>".number_format($row["valorCompraProduto"],2,',','.')."</td>");
+												echo ("<td>".number_format($row["valorCompraProduto"]*$row["qtdProduto"],2,',','.')."</td>");
+												echo ("<td>".number_format($row["valorVendaProduto"],2,',','.')."</td>");
+												echo ("<td>".number_format($row["valorVendaProduto"]*$row["qtdProduto"],2,',','.')."</td>");
+											echo "</tr>";
+											$total = $total + $row["valorCompraProduto"]*$row['qtdProduto'];
+										}
+									} 
+								}
+								mysqli_close($con);
+							?>
+						</tbody>
+					</table>
+					<strong><h6><?php echo ("Valor total do estoque (R$): ".number_format($total,2,',','.').""); ?></h6></strong><br>
+					(*) Valor estimado de ganho para venda de todos os itens. Cálculo efetuado com valor de venda cadastrado no banco de dados.
+            	</div>
             </div>
+			</div>
 		</main>
 
 		<footer class="page-footer blue darken-4 hide-on-small-only">
@@ -92,11 +122,19 @@
 				</div>
 			</div>
 		</footer>
-		
+		<script>
+			document.getElementById('btn').onclick = function() {
+				var conteudo = document.getElementById('print').innerHTML,
+					tela_impressao = window.open('about:blank');
+
+				tela_impressao.document.write(conteudo);
+				tela_impressao.window.print();
+				tela_impressao.window.close();
+			};
+        </script>
 		<script src="../js/jquery.js"></script>
 		<script type="text/javascript" src="../js/materialize.min.js"></script>
 		<script src="../js/init.js"></script>
-		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	</body>
 </html>
         
