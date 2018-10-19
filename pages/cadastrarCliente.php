@@ -48,27 +48,65 @@
 				<h4 class="center blue-text text-darken-4">Cadastrar Cliente</h4>
 				<div class="divider black"></div>
 				<div class="row"></div>
-				<form action="cadastrarCliente.php" method="post" class="center">
-					<div class="row">
-						<div class="input-field col s12 m12 l6 xl6">
-							<input type="text" name="nome" id="nome" required not null>
-							<label for="nome">Nome</label>
-						</div>
-						<div class="input-field col s12 m12 l6 xl6">
-							<input type="text" name="telefone" id="telefone" required not null>
-							<label for="telefone">Telefone</label>
-						</div>
-						<div class="input-field col s12 m12 l12 xl12">
-							<input type="email" name="email" id="email" >
-							<label for="email">Email</label>
-						</div>
-						<div class="input-field col s12 m12 l12 xl12">
-							<input type="text" name="endereco" id="endereco">
-							<label for="endereco">Endereço</label>
-						</div>
-					</div>
-					<button type="submit" class="btn waves-effect waves-light blue darken-4 white-text">Cadastrar</button>
-				</form>
+				<?php
+					include_once("conexao.php");
+					if(isset($_GET['editar'])) {
+						if(isset($_GET['id'])) {
+							$sql = "select * from clientes where idClientes=".$_GET['id'];
+							$result = mysqli_query($con, $sql);
+							if(mysqli_num_rows($result) > 0) {
+								while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+									echo "<form action='cadastrarCliente.php' method='post' class='center'>
+											<div class='row'>
+												<div class='input-field col s12 m12 l6 xl6'>
+													<input type='text' name='nome' id='nome' value='".$row["nomeCliente"]."' required not null>
+													<label for='nome'>Nome</label>
+												</div>
+												<div class='input-field col s12 m12 l6 xl6'>
+													<input type='text' name='telefone' id='telefone' value='".$row["telefoneCliente"]."' required not null>
+													<label for='telefone'>Telefone</label>
+												</div>
+												<div class='input-field col s12 m12 l12 xl12'>
+													<input type='email' name='email' id='email' value='".$row["emailCliente"]."'>
+													<label for='email'>Email</label>
+												</div>
+												<div class='input-field col s12 m12 l12 xl12'>
+													<input type='text' name='endereco' id='endereco' value='".$row["enderecoCliente"]."'>
+													<label for='endereco'>Endereço</label>
+												</div>
+											</div>
+											<input type='hidden' name='editado'>
+											<input type='hidden' name='id' value='".$row["idClientes"]."'>
+											<button type='submit' class='btn waves-effect waves-light blue darken-4 white-text'>Editar</button>
+										</form>";
+								}
+							}
+						}
+					} else {
+						echo "<form action='cadastrarCliente.php' method='post' class='center'>
+								<div class='row'>
+									<div class='input-field col s12 m12 l6 xl6'>
+										<input type='text' name='nome' id='nome' required not null>
+										<label for='nome'>Nome</label>
+									</div>
+									<div class='input-field col s12 m12 l6 xl6'>
+										<input type='text' name='telefone' id='telefone' required not null>
+										<label for='telefone'>Telefone</label>
+									</div>
+									<div class='input-field col s12 m12 l12 xl12'>
+										<input type='email' name='email' id='email' >
+										<label for='email'>Email</label>
+									</div>
+									<div class='input-field col s12 m12 l12 xl12'>
+										<input type='text' name='endereco' id='endereco'>
+										<label for='endereco'>Endereço</label>
+									</div>
+								</div>
+								<button type='submit' class='btn waves-effect waves-light blue darken-4 white-text'>Cadastrar</button>
+							</form>";
+					}
+				?>
+
 			</div>
 			<div class="row" style="margin: 2% 2% 0%;">
                 <h4 class="center blue-text text-darken-4">Clientes Cadastrados</h4>
@@ -87,40 +125,59 @@
                         </thead>
                         <tbody>
                             <?php
-                                include_once("conexao.php");
-                                if(isset($_POST['nome'])) {
-                                    $nome = strtoupper($_POST['nome']);
-                                    $telefone = strtoupper($_POST['telefone']);
-                                    $email = ($_POST['email']);
-                                    $endereco = strtoupper($_POST['endereco']);
-                                    //verifica se existe ean cadastrados no banco
-                                    $sql = "select * from clientes where emailCliente = '".$email."'";
-                                    $result = mysqli_query($con, $sql);
-                                    if(mysqli_num_rows($result) > 0){
-                                        echo ("<script>alert('Cliente já cadastrado');</script>");
-                                    }else{
-                                        $sql = "insert into clientes values(null,'$nome','$telefone','$email','$endereco')";
-										// echo $sql;
-										mysqli_query($con, $sql);
-                                        echo ("<script>alert('Cliente cadastrado');</script>");
-                                    }
-                                }
+								if(isset($_POST['editado'])) {
+									$id = $_POST['id'];
+									$nome = strtoupper($_POST['nome']);
+									$telefone = strtoupper($_POST['telefone']);
+									$email = ($_POST['email']);
+									$endereco = strtoupper($_POST['endereco']);
+									$sql = "update clientes set nomeCliente=$nome, telefoneCliente=$telefone, emailCliente=$email, enderecoCliente=$endereco where idClientes=$id";
+									mysqli_query($con, $sql);
+									echo ("<script>alert('Cliente alterado com sucesso!');</script>");
+								} else {
+									if(isset($_POST['nome'])) {
+										$nome = strtoupper($_POST['nome']);
+										$telefone = strtoupper($_POST['telefone']);
+										$email = ($_POST['email']);
+										$endereco = strtoupper($_POST['endereco']);
+										//verifica se existe ean cadastrados no banco
+										$sql = "select * from clientes where emailCliente = '".$email."'";
+										$result = mysqli_query($con, $sql);
+										if(mysqli_num_rows($result) > 0){
+											echo ("<script>alert('Cliente já cadastrado');</script>");
+										}else{
+											$sql = "insert into clientes values(null,'$nome','$telefone','$email','$endereco')";
+											mysqli_query($con, $sql);
+											echo ("<script>alert('Cliente cadastrado');</script>");
+										}
+									} 
+								}
                                 $sql = "select * from clientes order by clientes.nomeCliente asc";
                                 $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
                                 if(mysqli_num_rows($resultado) > 0) {
                                     while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
                                         echo "<tr>";
-                                            // echo ("<td>".$row["idClientes"]."</td>");
                                             echo ("<td>".$row["nomeCliente"]."</td>");
                                             echo ("<td>".$row["telefoneCliente"]."</td>");
                                             echo ("<td>".$row["emailCliente"]."</td>");
                                             echo ("<td>".$row["enderecoCliente"]."</td>");
-                                            echo ("<td><a href='' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
-                                            echo ("<td><a href='removerCliente.php?id=".$row["idClientes"]."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
-                                        echo "</tr>";
+                                            echo ("<td><a href='cadastrarCliente.php?editar=true&id=".$row['idClientes']."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+                                            echo ("<td><a href='#modal".$row["idClientes"]."' class='btn waves-effect waves-light red black-text modal-trigger'><b>Excluir</b></a></td>");
+										echo "</tr>";
+										echo "<div id='modal".$row["idClientes"]."' class='modal' style='margin-top: 15%; '>
+											<div class='modal-content' style='padding:0px;'>
+												<div class='row blue darken-4 white-text' style='margin-top:0%; padding-top:1%;'>
+													<h4 class='center'>Remover</h4>
+												</div>
+												<div class='row'><p>Deseja remover o cliente: <b>".$row["nomeCliente"]."</b>?</p></div>
+											</div>
+											<div class='modal-footer' style=''>
+												<a href='#!' class='modal-close waves-effect waves-light btn-flat red'><b>Cancelar</b></a>
+												<a href='removerCliente.php?id=".$row['idClientes']."' class='waves-effect waves-light btn-flat green'><b>Aceitar</b></a>
+											</div>
+										</div>";
                                     }
-                                } 
-                                // mysqli_close($con);
+                                }
                             ?>
                         </tbody>
                     </table>

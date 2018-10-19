@@ -7,7 +7,6 @@
 		<link type="text/css" rel="stylesheet" href="../css/style.css"  media="screen,projection"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		
 		<title>Distribuidora Ale</title>
 	</head>
 	<body>
@@ -50,42 +49,109 @@
                 <h4 class="center blue-text text-darken-4">Cadastro de Despesa</h4>
                 <div class="divider black"></div>
                 <div class="row"></div>
-                <form action="cadastrarDespesa.php" method="get" class="center">
-                    <div class="row">
-                        <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="nome" id="codigo" required autofocus not null>
-                            <label for="codigo">Nome</label>
-                        </div>
-                        <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="valor" id="nome" required not null>
-                            <label for="nome">Valor</label>
-                        </div>
-                        <div class="input-field col s12 m12 l6 xl6">
-							<input type="date" class="datepicker" name="datapagamento" require not null id="datapagamento">
-							<label for="datapagamento">Data Vencimento</label>
-                        </div>
-                        <div class="input-field col s12 m12 l6 xl6">
-						<input type="date" class="datepicker" name="datavencimento" id="datavencimento">
-							<label for="datavencimento">Data Pagamento</label>
-                        </div>
-						<div class="col s12 m6 l6 xl6" style="text-align: left;">
-							<p>Status de Pagamento:</p>	
-							<p>
-								<label>
-									<input name="group1" value='naopago' type="radio" checked/>
-									<span>Não Pago</span>
-								</label>
-							</p>
-							<p>
-								<label>
-									<input name="group1" value='pago' type="radio"/>
-									<span>Pago</span>
-								</label>
-							</p>
-						</div>
-                    </div>
-                    <button type="submit" class="btn waves-effect waves-light blue white-text darken-4 center">Cadastrar</button>
-                </form>
+				<?php
+                    include_once("conexao.php");
+					if(isset($_GET['editar'])) {
+						if(isset($_GET['id'])) {
+                            $sql = "select * from despesas where idDespesa=".$_GET['id'];
+							$result = mysqli_query($con, $sql);
+							if(mysqli_num_rows($result) > 0) {
+								while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+									echo "<form action='cadastrarDespesa.php' method='get' class='center'>
+												<div class='row'>
+													<div class='input-field col s12 m12 l6 xl6'>
+														<input type='text' name='nome' id='codigo' value='".$row['nomeDespesa']."' required autofocus not null>
+														<label for='codigo'>Nome</label>
+													</div>
+													<div class='input-field col s12 m12 l6 xl6'>
+														<input type='text' name='valor' id='nome' value='".$row['nomeDespesa']."' required not null>
+														<label for='nome'>Valor</label>
+													</div>
+													<div class='input-field col s12 m12 l6 xl6'>
+														<input type='date' name='datapagamento' id='datapagamento' value='".$row['nomeDespesa']."' require not null >
+														<label for='datapagamento'>Data Vencimento</label>
+													</div>
+													<div class='input-field col s12 m12 l6 xl6'>
+														<input type='date' name='datavencimento' id='datavencimento' value='".$row['nomeDespesa']."'>
+														<label for='datavencimento'>Data Pagamento</label>
+													</div>
+													<div class='col s12 m6 l6 xl6' style='text-align: left;'>
+														<p>Status de Pagamento:</p>	
+														<p>
+															<label>
+																<input name='group1' value='naopago' type='radio' checked/>
+																<span>Não Pago</span>
+															</label>
+														</p>
+														<p>
+															<label>
+																<input name='group1' value='pago' type='radio'/>
+																<span>Pago</span>
+															</label>
+														</p>
+													</div>
+												</div>
+												<input type='hidden' name='editado'>
+												<input type='hidden' name='id' value='".$row["idDespesa"]."'>
+												<button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Cadastrar</button>
+											</form>";
+								}
+							}
+						}
+					} else {
+						echo "<form action='cadastrarDespesa.php' method='get' class='center'>
+									<div class='row'>
+										<div class='input-field col s12 m12 l6 xl6'>
+											<input type='text' name='nome' id='codigo' required autofocus not null>
+											<label for='codigo'>Nome</label>
+										</div>
+										<div class='input-field col s12 m12 l6 xl6'>
+											<input type='text' name='valor' id='nome' required not null>
+											<label for='nome'>Valor</label>
+										</div>
+										<div class='input-field col s12 m12 l6 xl6'>
+											<input type='date' name='datapagamento' require not null id='datapagamento'>
+											<label for='datapagamento'>Data Vencimento</label>
+										</div>
+										<div class='input-field col s12 m12 l6 xl6'>
+											<input type='date' name='datavencimento' id='datavencimento'>
+											<label for='datavencimento'>Data Pagamento</label>
+										</div>
+										<div class='col s12 m6 l6 xl6' style='text-align: left;'>
+											<p>Status de Pagamento:</p>";
+											if($row['status'] == 1) {
+												echo "<p>
+														<label>
+															<input name='group1' value='naopago' type='radio'/>
+															<span>Não Pago</span>
+														</label>
+													</p>
+													<p>
+														<label>
+															<input name='group1' value='pago' type='radio' checked/>
+															<span>Pago</span>
+														</label>
+													</p>";
+											} else {
+												echo "<p>
+														<label>
+															<input name='group1' value='naopago' type='radio' checked/>
+															<span>Não Pago</span>
+														</label>
+													</p>
+													<p>
+														<label>
+															<input name='group1' value='pago' type='radio'/>
+															<span>Pago</span>
+														</label>
+													</p>";
+											}
+										echo "</div>
+									</div>
+									<button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Cadastrar</button>
+								</form>";
+					}
+                ?>
             </div>
             <div class="row" style="margin: 2% 2% 0%;">
                 <h4 class="center blue-text text-darken-4">Despesas Cadastradas</h4>
@@ -94,7 +160,6 @@
                     <table class="highlight centered">
                         <thead>
                             <tr>
-                                <!-- <th>Código</th> -->
                                 <th>Nome</th>
                                 <th>Valor</th>
                                 <th>Data Vencimento</th>
@@ -123,10 +188,10 @@
 									}else{
 										$sql = "insert into despesas values(null,'$nome',$valor,'$datavencimento','$datapagamento',$pago)";
 									}
-									// echo $sql;
 									mysqli_query($con, $sql);
 									echo ("<script>alert('Despesa cadastrada');</script>");
 								}
+
 								$sql = "select * from despesas";
 								$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
 								if(mysqli_num_rows($resultado) > 0) {

@@ -56,24 +56,20 @@
 							<label for='codigo'>Código</label>
 						</div>
 						<div class='input-field col s12 m12 l6 xl6'>
-							<input type='number' min="0.01" step="0.01" max="2500" name='valorvenda' id='valorvenda' required  not null>
-							<label for='valorvenda'>Preço de venda</label>
+							<input type='number' min="0.01" step="0.01" max="2500" name='valorvenda' id='valorvenda' placeholder="Preço de Venda" required  not null>
 						</div>
 						<div class='input-field col s12 m12 l6 xl6'>
-							<input type='number' min="0.01" step="0.01" max="2500" name='valorcompra' id='valorcompra' required  not null>
-							<label for='valorcompra'>Preço de compra</label>
+							<input type='number' min="0.01" step="0.01" max="2500" name='valorcompra' id='valorcompra' placeholder="Preço de Compra" required  not null>
 						</div>
 						<div class='input-field col s12 m12 l6 xl6'>
 							<input type='number' min='1' name='quantidade' id='quantidade' required not null>
 							<label for='quantidade'>Quantidade (UN)</label>
 						</div>
 						<div style="font: black;" class='input-field col s12 m12 l6 xl6'>
-							<input type='text' min='1' disabled name='quantidadeemestoque' id='quantidadeemestoque' required not null>
-							<!-- <label for='quantidadeemestoque'>Quantidade em estoque(UN)</label> -->
+							<input type='text' min='1' disabled name='quantidadeemestoque' id='quantidadeemestoque' placeholder="Quantidade em Estoque" required not null>
 						</div>
 						<div class='input-field col s12 m12 l6 xl6'>
-							<input disabled type='text' name='nome' id='nome' value=''>
-							<label for='nome'>Nome</label>
+							<input disabled type='text' name='nome' id='nome' placeholder="Nome">
 						</div>
 					</div>
 					<button name='enviar' type="submit" class="btn waves-effect waves-light blue darken-4 white-text">Inserir</button>
@@ -122,7 +118,7 @@
         $quant = $_POST['quantidade'];
         $precocompra = $_POST['valorcompra'];
         $precovenda = $_POST['valorvenda'];
-        $sql = "update produtos set qtdProduto = qtdProduto+$quant, valorCompraProduto = $precocompra, valoVendaProduto = $precovenda where eanProduto = $ean";
+        $sql = "update produtos set qtdProduto=qtdProduto+$quant, valorCompraProduto=$precocompra, valorVendaProduto=$precovenda where eanProduto=$ean";
         mysqli_query($con, $sql);
     }
 ?>

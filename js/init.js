@@ -6,6 +6,7 @@
 			draggable: true
         });
         // $(".button-collapse").sideNav();
-        $('.datepicker').pickadate();
+        // $('.datepicker').pickadate();
+        $('.modal').modal();
     }); // end of document ready
 })(jQuery); // end of jQuery name space

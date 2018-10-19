@@ -11,32 +11,6 @@ include_once("conexao.php");
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Distribuidora Ale</title>
-		<style>
-            .alert {
-                padding: 20px;
-                background-color: #f44336;
-                color: white;
-            }
-            
-            .alert.warning {
-                background-color: #ff9800;
-            }
-
-            .closebtn {
-                margin-left: 15px;
-                color: white;
-                font-weight: bold;
-                float: right;
-                font-size: 22px;
-                line-height: 20px;
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            .closebtn:hover {
-                color: black;
-            }
-        </style>
 	</head>
 	<body>
 		<header>
@@ -77,24 +51,56 @@ include_once("conexao.php");
                 <h4 class="center blue-text text-darken-4">Cadastro de Fornecedor</h4>
                 <div class="divider black"></div>
                 <div class="row"></div>
-                <form action="cadastrarFornecedor.php" method="post" class="center">
-                    <div class="row">
-                        <div class="input-field col s12 m12 l6 xl6">
-                            <input type="text" name="nome" id="nome" required autofocus not null>
-                            <label for="nome">Nome</label>
-                        </div>
-                        <div class="input-field col s12 m12 l6 xl6">
-                            <input type="tel" name="telefone" id="telefone" required not null>
-                            <label for="telefone">Telefone</label>
-                        </div>
-                        <div class="input-field col s12 m12 l12 xl12">
-                            <input type="email" name="email" id="email">
-                            <label for="email">Email</label>
-                        </div>
-                        
-                    </div>
-                    <button type="submit" class="btn waves-effect waves-light blue white-text darken-4 center">Cadastrar</button>
-                </form>
+                <?php
+                    include_once("conexao.php");
+					if(isset($_GET['editar'])) {
+						if(isset($_GET['id'])) {
+                            $sql = "select * from fornecedores where idFornecedor=".$_GET['id'];
+							$result = mysqli_query($con, $sql);
+							if(mysqli_num_rows($result) > 0) {
+								while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+                                    echo "<form action='cadastrarFornecedor.php' method='post' class='center'>
+                                            <div class='row'>
+                                                <div class='input-field col s12 m12 l6 xl6'>
+                                                    <input type='text' name='nome' id='nome' value='".$row["nomeFornecedor"]."' required autofocus not null>
+                                                    <label for='nome'>Nome</label>
+                                                </div>
+                                                <div class='input-field col s12 m12 l6 xl6'>
+                                                    <input type='tel' name='telefone' id='telefone' value='".$row["telefoneFornecedor"]."' required not null>
+                                                    <label for='telefone'>Telefone</label>
+                                                </div>
+                                                <div class='input-field col s12 m12 l12 xl12'>
+                                                    <input type='email' name='email' id='email' value='".$row["emailFornecedor"]."' required not null>
+                                                    <label for='email'>Email</label>
+                                                </div>
+                                            </div>
+                                            <input type='hidden' name='editado'>
+                                            <input type='hidden' name='id' value='".$row["idFornecedor"]."'>
+                                            <button type='submit' class='btn waves-effect waves-light blue darken-4 white-text'>Editar</button>
+                                        </form>";
+								}
+							}
+						}
+					} else {
+						echo "<form action='cadastrarFornecedor.php' method='post' class='center'>
+								<div class='row'>
+                                    <div class='input-field col s12 m12 l6 xl6'>
+                                        <input type='text' name='nome' id='nome' required autofocus not null>
+                                        <label for='nome'>Nome</label>
+                                    </div>
+                                    <div class='input-field col s12 m12 l6 xl6'>
+                                        <input type='tel' name='telefone' id='telefone' required not null>
+                                        <label for='telefone'>Telefone</label>
+                                    </div>
+                                    <div class='input-field col s12 m12 l12 xl12'>
+                                        <input type='email' name='email' id='email'>
+                                        <label for='email'>Email</label>
+                                    </div>
+								</div>
+								<button type='submit' class='btn waves-effect waves-light blue darken-4 white-text'>Cadastrar</button>
+							</form>";
+					}
+                ?>
             </div>
             <div class="row" style="margin: 2% 2% 0%;">
                 <h4 class="center blue-text text-darken-4">Fornecedores Cadastrados</h4>
@@ -112,33 +118,54 @@ include_once("conexao.php");
                         </thead>
                         <tbody>
                             <?php
-                                if(isset($_POST['nome'])) {
-                                    $telefone = ($_POST['telefone']);
-                                    $nomefornecedor = ($_POST['nome']);
+                                if(isset($_POST['editado'])) {
+                                    $id = $_POST['id'];
+                                    $nome = strtoupper($_POST['nome']);
+                                    $telefone = strtoupper($_POST['telefone']);
                                     $email = ($_POST['email']);
-                                    //verifica se existe ean cadastrados no banco
-                                    $sql = "select * from fornecedores where telefoneFornecedor = '".$telefone."'";
-                                    $result = mysqli_query($con, $sql);
-                                    if(mysqli_num_rows($result) > 0){
-                                        echo ("<script>alert('Fornecedor já cadastrado');</script>");
-                                    }else{
-                                        $sql = "insert into fornecedores values(null,'$nomefornecedor','$telefone','$email')";
-                                        // echo $sql;
-                                        mysqli_query($con, $sql);
-                                        echo ("<script>alert('Fornecedor cadastrado');</script>");
+                                    $sql = "update fornecedor set nomeFornecedor=$nome, telefoneFornecedor=$telefone, emailFornecedor=$email where idFornecedor=$id";
+                                    mysqli_query($con, $sql);
+                                    echo ("<script>alert('Fornecedor alterado com sucesso!');</script>");
+                                } else {
+                                    if(isset($_POST['nome'])) {
+                                        $telefone = ($_POST['telefone']);
+                                        $nomefornecedor = ($_POST['nome']);
+                                        $email = ($_POST['email']);
+                                        $sql = "select * from fornecedores where telefoneFornecedor = '".$telefone."'";
+                                        $result = mysqli_query($con, $sql);
+                                        if(mysqli_num_rows($result) > 0){
+                                            echo ("<script>alert('Fornecedor já cadastrado');</script>");
+                                        }else{
+                                            $sql = "insert into fornecedores values(null,'$nomefornecedor','$telefone','$email')";
+                                            mysqli_query($con, $sql);
+                                            echo ("<script>alert('Fornecedor cadastrado');</script>");
+                                        }
                                     }
                                 }
+                                
                                 $sql = "select * from fornecedores";
                                 $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
                                 if(mysqli_num_rows($resultado) > 0) {
                                     while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
                                         echo "<tr>";
-                                        echo ("<td>".$row["nomeFornecedor"]."</td>");
-                                        echo ("<td>".$row["telefoneFornecedor"]."</td>");
-                                        echo ("<td>".$row["emailFornecedor"]."</td>");
-                                        echo ("<td><a href='' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
-                                        echo ("<td><a href='' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
+                                            echo ("<td>".$row["nomeFornecedor"]."</td>");
+                                            echo ("<td>".$row["telefoneFornecedor"]."</td>");
+                                            echo ("<td>".$row["emailFornecedor"]."</td>");
+                                            echo ("<td><a href='cadastrarFornecedor.php?editar=true&id=".$row['idFornecedor']."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+                                            echo ("<td><a href='#modal".$row["idFornecedor"]."' class='btn waves-effect waves-light red black-text modal-trigger'><b>Excluir</b></a></td>");
                                         echo "</tr>";
+                                        echo "<div id='modal".$row["idFornecedor"]."' class='modal' style='margin-top: 15%; '>
+											<div class='modal-content' style='padding:0px;'>
+												<div class='row blue darken-4 white-text' style='margin-top:0%; padding-top:1%;'>
+													<h4 class='center'>Remover</h4>
+												</div>
+												<div class='row'><p>Deseja remover o cliente: <b>".$row["nomeFornecedor"]."</b>?</p></div>
+											</div>
+											<div class='modal-footer' style=''>
+												<a href='#!' class='modal-close waves-effect waves-light btn-flat red'><b>Cancelar</b></a>
+												<a href='removerCliente.php?id=".$row['idFornecedor']."' class='waves-effect waves-light btn-flat green'><b>Aceitar</b></a>
+											</div>
+										</div>";
                                     }
                                 } 
                                 mysqli_close($con);
