@@ -94,7 +94,9 @@
 														}
 													echo "</tbody>
 												</table>";
-											echo "<div class='row blue-text text-darken-4' style='padding:0.3%; '><h5>Total = R$".$_POST['total']."</h5></div>";
+											echo "<div class='row blue-text text-darken-4 right' style='padding:0.3%; '>
+													<h5>Total = R$".$_POST['total']."</h5>
+												</div>";
 										// if($exec) {
 										// 	echo "<script>alert('Venda realizada com sucesso!')</script>";
 										// }
@@ -123,83 +125,50 @@
 									}
 								?>
 								<div class="row"></div>
-								<div class="row">
-									<div class="input-field col s12 m12 l12 xl12">
+								<h5 class="blue-text text-darken-4">Cliente</h5>
+								<div class="divider black"></div>
+								<div class="input-field col s12 m12 l12 xl12">
+									<input type="text" id="autocomplete-input" class="autocomplete" name='cliente'>
+									<label for="autocomplete-input">Cliente</label>
+								</div>
+								<h5 class='blue-text text-darken-4'>Forma de Pagamento</h5>
+								<div class="divider black"></div>
+								<ul id="tabs-swipe-demo" class="tabs tabs-fixed-width tab-demo">
+									<li class="tab col s12 m12 l12 xl12"><a href="#test1">Dinheiro</a></li>
+									<li class="tab col s12 m12 l12 xl12"><a class="active" href="#test2">Cartão</a></li>
+									<li class="tab col s12 m12 l12 xl12"><a href="#test3">Cheque</a></li>
+								</ul>
+								<div id="test1" class="col s12 m12 l12 xl12">
+									<h5 class='blue-text text-darken-4 tab-text'>Dinheiro</h5>
+									<div class="divider black"></div>
+									<div class="input-field s12 m12 l12 xl12">
 										<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
-										<label for="valor">Valor a ser Pago (R$)</label>
+										<label for="valor">Valor da Entrada (R$)</label>
 									</div>
-									<div class="input-field col s12 m12 l12 xl12">
-										<input type="text" id="autocomplete-input" class="autocomplete" name='cliente'>
-										<label for="autocomplete-input">Cliente</label>
+									<div class="row center">
+										<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
 									</div>
-									<div class="col s12 m12 l12 xl12">
-										<h5>Forma de Pagamento</h5>
-										<!-- <p>
-											<label>
-												<input name="dinheiro" type="radio" checked />
-												<span>Dinheiro</span>
-											</label>
-										</p>
-										<p>
-											<label>
-												<input name="cartao" type="radio" />
-												<span>Cartão</span>
-											</label>
-										</p>
-										<p>
-											<label>
-												<input name="cheque" type="radio"  />
-												<span>Cheque</span>
-											</label>
-										</p> -->
-										<div class="col s12 m12 l12 xl12">
-											<h5>Dinheiro</h5>
-											<div class="divider black"></div>
-											<div class="input-field s12 m12 l12 xl12">
-												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
-												<label for="valor">Valor da Entrada (R$)</label>
-											</div>
-											<!-- <div class="input-field s12 m12 l12 xl12">
-												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
-												<label for="valor">Valor a ser Pago (R$)</label>
-											</div> -->
-											<div class="row center">
-												<?php //unset($_SESSION['itens']);?>
-												<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
-											</div>
-										</div>
-										<div class="col s12 m12 l12 xl12">
-											<h5>Cartão</h5>
-											<div class="divider black"></div>
-											<div class="input-field s12 m12 l12 xl12">
-												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
-												<label for="valor">Valor da Entrada (R$)</label>
-											</div>
-											<!-- <div class="input-field s12 m12 l12 xl12">
-												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
-												<label for="valor">Valor a ser Pago (R$)</label>
-											</div> -->
-											<div class="row center">
-												<?php //unset($_SESSION['itens']);?>
-												<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
-											</div>
-										</div>
-										<div class="col s12 m12 l12 xl12">
-											<h5>Cheque</h5>
-											<div class="divider black"></div>
-											<div class="input-field s12 m12 l12 xl12">
-												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
-												<label for="valor">Valor da Entrada (R$)</label>
-											</div>
-											<!-- <div class="input-field s12 m12 l12 xl12">
-												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
-												<label for="valor">Valor a ser Pago (R$)</label>
-											</div> -->
-											<div class="row center">
-												<?php //unset($_SESSION['itens']);?>
-												<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
-											</div>
-										</div>
+								</div>
+								<div id="test2" class="col s12 m12 l12 xl12">
+									<h5 class='blue-text text-darken-4 tab-text'>Cartão</h5>
+									<div class="divider black"></div>
+									<div class="input-field s12 m12 l12 xl12">
+										<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+										<label for="valor">Valor da Entrada (R$)</label>
+									</div>
+									<div class="row center">
+										<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
+									</div>
+								</div>
+								<div id="test3" class="col s12 m12 l12 xl12">
+									<h5 class='blue-text text-darken-4 tab-text'>Cheque</h5>
+									<div class="divider black"></div>
+									<div class="input-field s12 m12 l12 xl12">
+										<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+										<label for="valor">Valor da Entrada (R$)</label>
+									</div>
+									<div class="row center">
+										<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
 									</div>
 								</div>
 								
