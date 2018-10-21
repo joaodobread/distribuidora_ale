@@ -13,10 +13,9 @@
 		<header>
 			<nav class="blue darken-4">
 				<div class="nav-wrapper">
-					<a  class="brand-logo center white-text" href="#" style="margin-top: 0%;">Distribuidora Ale</a>
+				<a  class="brand-logo center white-text" href="#" style="margin-top: 0%;">Distribuidora Ale</a>
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right:5%;">
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
 						<li><a href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 					<ul class="sidenav grey darken-4" id="mobile-demo">
@@ -31,7 +30,7 @@
                         <li><a class="white-text" href="./relatorios.php"><i class="material-icons white-text left">description</i>Relatório De Produtos</a></li>
                         <li><a class="white-text" href="./cadastrarDespesa.php"><i class="material-icons white-text left">attach_money</i>Despesas</a></li>
                         <li><a class="white-text" href="./geraGrafico.php?tipo=line"><i class="material-icons white-text left">bar_chart</i>Gráficos</a></li>
-						<li><a class="white-text" href="./admin.php" class="white-text">Administrativo</a></li>
+						<li><a class="white-text" href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 						<li><a class="white-text" href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 				</div>
@@ -52,63 +51,64 @@
 					<li><a href="./relatorios.php" class="activeLi"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
 					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
 					<li><a href="./geraGrafico.php?tipo=line"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
+					<li><a href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 				</ul>
 			</div>
 			<div class="row" style="margin: 2% 2% 0%;">
 				<h4 class="center blue-text text-darken-4">Estoque</h4>
 				<div class="divider black"></div>
-				<div class="row">
+				<div class="row"></div>
+				<div id="print">
+					<div class='row'>
+						<table class="highlight centered">
+							<thead>
+								<tr>
+									<th>Fornecedor</th>
+									<th>Código</th>
+									<th>Nome</th>
+									<th>Qtd. em estoque</th>
+									<th>Valor de Compra</th>
+									<th>Valor total do produto em estoque</th>
+									<th>Valor de Venda</th>
+									<th>Valor total de venda *</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									$total = 0;
+									include_once("conexao.php");
+									// $sql = "select * from produtos order by produtos.nomeProduto asc";
+									$sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valorVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";							
+									$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
+									if(!isset($_POST['nomeProduto']) || $nome == '' ){
+										if(mysqli_num_rows($resultado) > 0) {
+											// $cargo = $_SESSION['cargo'];
+											while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
+												echo "<tr>";
+													echo ("<td>".$row["nomeFornecedor"]."</td>");
+													echo ("<td>".$row["eanProduto"]."</td>");
+													echo ("<td>".$row["nomeProduto"]."</td>");
+													echo ("<td>".$row["qtdProduto"]."</td>");
+													echo ("<td>".number_format($row["valorCompraProduto"],2,',','.')."</td>");
+													echo ("<td>".number_format($row["valorCompraProduto"]*$row["qtdProduto"],2,',','.')."</td>");
+													echo ("<td>".number_format($row["valorVendaProduto"],2,',','.')."</td>");
+													echo ("<td>".number_format($row["valorVendaProduto"]*$row["qtdProduto"],2,',','.')."</td>");
+												echo "</tr>";
+												$total = $total + $row["valorCompraProduto"]*$row['qtdProduto'];
+											}
+										} 
+									}
+									mysqli_close($con);
+								?>
+							</tbody>
+						</table>
+						<strong><h6><?php echo ("Valor total do estoque (R$): ".number_format($total,2,',','.').""); ?></h6></strong><br>
+						(*) Valor estimado de ganho para venda de todos os itens. Cálculo efetuado com valor de venda cadastrado no banco de dados.
+					</div>
+				</div>
+				<div class="row center">
 					<button class="btn waves-effect waves-light blue darken-4 white-text" id="btn"><i class="material-icons left">print</i>Imprimir relatório</button>
 				</div>
-			<div id="print">
-				
-				<div class='row' >
-					<table border='1' class="highlight centered">
-						<thead>
-							<tr>
-								<th>Fornecedor</th>
-								<th>Código</th>
-								<th>Nome</th>
-								<th>Qtd. em estoque</th>
-								<th>Valor de Compra</th>
-								<th>Valor total do produto em estoque</th>
-								<th>Valor de Venda</th>
-								<th>Valor total de venda *</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								$total = 0;
-								include_once("conexao.php");
-								// $sql = "select * from produtos order by produtos.nomeProduto asc";
-                                $sql = "select produtos.eanProduto, produtos.idFornecedor, produtos.idProduto, produtos.nomeProduto, produtos.qtdProduto, produtos.valorCompraProduto, produtos.valorVendaProduto, fornecedores.nomeFornecedor from produtos inner join fornecedores on fornecedores.idFornecedor = produtos.idFornecedor order by produtos.nomeProduto asc";							
-								$resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
-								if(!isset($_POST['nomeProduto']) || $nome == '' ){
-									if(mysqli_num_rows($resultado) > 0) {
-										// $cargo = $_SESSION['cargo'];
-										while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
-											echo "<tr>";
-												echo ("<td>".$row["nomeFornecedor"]."</td>");
-												echo ("<td>".$row["eanProduto"]."</td>");
-												echo ("<td>".$row["nomeProduto"]."</td>");
-												echo ("<td>".$row["qtdProduto"]."</td>");
-												echo ("<td>".number_format($row["valorCompraProduto"],2,',','.')."</td>");
-												echo ("<td>".number_format($row["valorCompraProduto"]*$row["qtdProduto"],2,',','.')."</td>");
-												echo ("<td>".number_format($row["valorVendaProduto"],2,',','.')."</td>");
-												echo ("<td>".number_format($row["valorVendaProduto"]*$row["qtdProduto"],2,',','.')."</td>");
-											echo "</tr>";
-											$total = $total + $row["valorCompraProduto"]*$row['qtdProduto'];
-										}
-									} 
-								}
-								mysqli_close($con);
-							?>
-						</tbody>
-					</table>
-					<strong><h6><?php echo ("Valor total do estoque (R$): ".number_format($total,2,',','.').""); ?></h6></strong><br>
-					(*) Valor estimado de ganho para venda de todos os itens. Cálculo efetuado com valor de venda cadastrado no banco de dados.
-            	</div>
-            </div>
 			</div>
 		</main>
 
@@ -122,6 +122,7 @@
 				</div>
 			</div>
 		</footer>
+		
 		<script>
 			document.getElementById('btn').onclick = function() {
 				var conteudo = document.getElementById('print').innerHTML,

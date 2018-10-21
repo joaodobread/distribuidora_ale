@@ -1,6 +1,3 @@
-<?php 
-include_once("conexao.php");
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -11,32 +8,6 @@ include_once("conexao.php");
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Distribuidora Ale</title>
-		<style>
-            .alert {
-                padding: 20px;
-                background-color: #f44336;
-                color: white;
-            }
-            
-            .alert.warning {
-                background-color: #ff9800;
-            }
-
-            .closebtn {
-                margin-left: 15px;
-                color: white;
-                font-weight: bold;
-                float: right;
-                font-size: 22px;
-                line-height: 20px;
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            .closebtn:hover {
-                color: black;
-            }
-        </style>
 	</head>
 	<body>
 		<header>
@@ -45,7 +16,6 @@ include_once("conexao.php");
 					<a  class="brand-logo center white-text" href="#" style="margin-top: 0%;">Distribuidora Ale</a>
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right:5%;">
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
 						<li><a href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 					<ul class="sidenav grey darken-4" id="mobile-demo">
@@ -60,7 +30,7 @@ include_once("conexao.php");
                         <li><a class="white-text" href="./relatorios.php"><i class="material-icons white-text left">description</i>Relatório De Produtos</a></li>
                         <li><a class="white-text" href="./cadastrarDespesa.php"><i class="material-icons white-text left">attach_money</i>Despesas</a></li>
                         <li><a class="white-text" href="./geraGrafico.php?tipo=line"><i class="material-icons white-text left">bar_chart</i>Gráficos</a></li>
-						<li><a class="white-text" href="./admin.php" class="white-text">Administrativo</a></li>
+                        <li><a class="white-text" href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 						<li><a class="white-text" href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 				</div>
@@ -81,6 +51,7 @@ include_once("conexao.php");
 					<li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
 					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
 					<li><a href="./geraGrafico.php?tipo=line"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
+                    <li><a href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 				</ul>
 			</div>
 		    <div class="row" style="margin: 2% 2% 0%;">
@@ -140,7 +111,7 @@ include_once("conexao.php");
                                                     <label>Fornecedor</label>
                                                 </div>
                                             </div>
-                                            <button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Salvar</button>
+                                            <button type='submit' class='btn waves-effect waves-light blue white-text darken-4 center'>Editar</button>
                                         </form>
                                     ";
                                 }
@@ -255,7 +226,7 @@ include_once("conexao.php");
                                             echo ("<td>".$row["valorVendaProduto"]."</td>");
                                             echo ("<td><a href='cadastrarProduto.php?editar=1&id=".$row['idProduto']."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
                                             echo ("<td><a href='removerProduto.php?id=".$row['idProduto']."' class='btn waves-effect waves-light red black-text'><b>Excluir</b></a></td>");
-                                            echo "</tr>";
+                                        echo "</tr>";
                                     }
                                 } 
                                 mysqli_close($con);

@@ -21,7 +21,6 @@
 					<a  class="brand-logo center white-text" href="#" style="margin-top: 0%;">Distribuidora Ale</a>
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right:5%;">
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
 						<li><a href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 					<ul class="sidenav grey darken-4" id="mobile-demo">
@@ -36,7 +35,6 @@
                         <li><a class="white-text" href="./relatorios.php"><i class="material-icons white-text left">description</i>Relatório De Produtos</a></li>
                         <li><a class="white-text" href="./cadastrarDespesa.php"><i class="material-icons white-text left">attach_money</i>Despesas</a></li>
                         <li><a class="white-text" href="./geraGrafico.php?tipo=line"><i class="material-icons white-text left">bar_chart</i>Gráficos</a></li>
-						<li><a class="white-text" href="./admin.php" class="white-text">Administrativo</a></li>
 						<li><a class="white-text" href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 				</div>
@@ -45,7 +43,7 @@
 
 		<main>
 			<div class="row">
-				<ul id="sidenav-1" class="sidenav sidenav-fixed grey lighten-5">
+				<ul id="sidenav-1" class="sidenav sidenav-fixed">
 					<li class="subheader white-text center">Menu</li>
 					<div class="row"></div>
 					<li><a href="./addEstoque.php"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
@@ -57,6 +55,7 @@
 					<li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
 					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
 					<li><a href="./geraGrafico.php?tipo=line"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
+					<li><a href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 				</ul>
 			</div>
 			<div class="row">
@@ -107,6 +106,10 @@
 									</div>
 									<div class="input-field col s12 m12 l6 xl6">
 										<input type="number" min="0.01" step="0.01" max="2500" name="valor" id="valor" placeholder="Valor">
+									</div>
+									<div class="input-field col s12 m12 l12 xl12">
+										<input type="number" name="valorcobrado" id="valorCobrado">
+										<label for="valorCobrado">Valor a ser Cobrado</label>
 									</div>
 								</div>
 								<div class="row">

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -17,7 +18,6 @@
 					<a  class="brand-logo center white-text" href="#" style="margin-top: 0%;">Distribuidora Ale</a>
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right:5%;">
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
 						<li><a href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 					<ul class="sidenav grey darken-4" id="mobile-demo">
@@ -32,7 +32,7 @@
                         <li><a class="white-text" href="./relatorios.php"><i class="material-icons white-text left">description</i>Relatório De Produtos</a></li>
                         <li><a class="white-text" href="./cadastrarDespesa.php"><i class="material-icons white-text left">attach_money</i>Despesas</a></li>
                         <li><a class="white-text" href="./geraGrafico.php?tipo=line"><i class="material-icons white-text left">bar_chart</i>Gráficos</a></li>
-						<li><a class="white-text" href="./admin.php" class="white-text">Administrativo</a></li>
+						<li><a class="white-text" href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 						<li><a class="white-text" href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 				</div>
@@ -41,8 +41,8 @@
 
         <main>
 			<div class="row">
-				<ul id="sidenav-1" class="sidenav sidenav-fixed grey lighten-5">
-					<li><a class="subheader blue darken-4 white-text">Menu</a></li>
+				<ul id="sidenav-1" class="sidenav sidenav-fixed">
+					<li class="subheader white-text center">Menu</li>
 					<div class="row"></div>
 					<li><a href="./addEstoque.php"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
 					<li><a href="./cadastrarCliente.php"><i class="material-icons left">face</i>Cadastrar Cliente</a></li>
@@ -51,7 +51,9 @@
 					<li><a href="./venda.php"><i class="material-icons left">add_shopping_cart</i>Efetuar Venda</a></li>
 					<li><a href="./estoque.php"><i class="material-icons left">storage</i>Estoque</a></li>
 					<li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
-					<li><a href="./cadastrarDespesa.php?tipo=line"><i class="material-icons left">attach_money</i>Despesas</a></li>
+					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
+					<li><a href="./geraGrafico.php?tipo=line"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
+					<li><a href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 				</ul>
 			</div>
             <div class="row">
@@ -64,7 +66,6 @@
 							<form action="finalizaVenda.php" method="post">
 								<?php
 									include_once("./conexao.php");
-									session_start();
 									if(isset($_POST['total'])) {
 										echo "<table class='centered highlight'>
 													<thead>
@@ -132,8 +133,8 @@
 										<label for="autocomplete-input">Cliente</label>
 									</div>
 									<div class="col s12 m12 l12 xl12">
-										<h6>Forma de Pagamento</h6>
-										<p>
+										<h5>Forma de Pagamento</h5>
+										<!-- <p>
 											<label>
 												<input name="dinheiro" type="radio" checked />
 												<span>Dinheiro</span>
@@ -150,13 +151,58 @@
 												<input name="cheque" type="radio"  />
 												<span>Cheque</span>
 											</label>
-										</p>
+										</p> -->
+										<div class="col s12 m12 l12 xl12">
+											<h5>Dinheiro</h5>
+											<div class="divider black"></div>
+											<div class="input-field s12 m12 l12 xl12">
+												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+												<label for="valor">Valor da Entrada (R$)</label>
+											</div>
+											<!-- <div class="input-field s12 m12 l12 xl12">
+												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+												<label for="valor">Valor a ser Pago (R$)</label>
+											</div> -->
+											<div class="row center">
+												<?php //unset($_SESSION['itens']);?>
+												<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
+											</div>
+										</div>
+										<div class="col s12 m12 l12 xl12">
+											<h5>Cartão</h5>
+											<div class="divider black"></div>
+											<div class="input-field s12 m12 l12 xl12">
+												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+												<label for="valor">Valor da Entrada (R$)</label>
+											</div>
+											<!-- <div class="input-field s12 m12 l12 xl12">
+												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+												<label for="valor">Valor a ser Pago (R$)</label>
+											</div> -->
+											<div class="row center">
+												<?php //unset($_SESSION['itens']);?>
+												<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
+											</div>
+										</div>
+										<div class="col s12 m12 l12 xl12">
+											<h5>Cheque</h5>
+											<div class="divider black"></div>
+											<div class="input-field s12 m12 l12 xl12">
+												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+												<label for="valor">Valor da Entrada (R$)</label>
+											</div>
+											<!-- <div class="input-field s12 m12 l12 xl12">
+												<input type="number" min="0.01" step="0.01" max="2500" name="valorcompra" id="valor" required not null>
+												<label for="valor">Valor a ser Pago (R$)</label>
+											</div> -->
+											<div class="row center">
+												<?php //unset($_SESSION['itens']);?>
+												<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="row center">
-									<?php //unset($_SESSION['itens']);?>
-									<button type="submit" class="btn waves-effect waves-light green darken-2 white-text">Finalizar Venda</button>
-								</div>
+								
 							</form>
 						</div>
 					</div>

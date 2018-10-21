@@ -1,6 +1,10 @@
 <?php
 	include("conexao.php");
-	$grafico = $_GET['tipo'];
+	if(isset($_GET['tipo'])) {
+		$grafico = $_GET['tipo'];
+	} else {
+		$grafico = 'line';
+	}
 	$ano = 2018;
 	$vendido = array();
 	for($i = 0; $i < 12; $i++){
@@ -33,11 +37,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
-		<style>
-			#corpo{
-				height: 500px;
-			}
-		</style>
 		<meta charset="UTF-8">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
@@ -45,13 +44,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Distribuidora Ale</title>
+		<style>
+			#corpo{
+				height: 500px;
+			}
+		</style>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript">
 			google.charts.load("current", {packages:['corechart','line']});
 			google.charts.setOnLoadCallback(drawChart);
 
 			function drawChart() {
-				
 				var dataLine = new google.visualization.DataTable();
 				dataLine.addColumn('string', 'Mês');
 				dataLine.addColumn('number', 'Valor vendido em R$');
@@ -59,39 +62,37 @@
 				dataLine.addColumn('number', 'Lucro em R$');
 
 				dataLine.addRows([
-								["Janeiro",   <?php echo ($vendido[0]); ?>, <?php echo($despesas[0]); ?> , <?php echo(($vendido[0]-$despesas[0])); ?>],
-								["Feveiro",   <?php echo ($vendido[1]); ?>, <?php echo($despesas[1]); ?> , <?php echo(($vendido[1]-$despesas[1])); ?>],
-								["Março",     <?php echo ($vendido[2]); ?>, <?php echo($despesas[2]); ?> , <?php echo(($vendido[2]-$despesas[2])); ?>],
-								["Abril",     <?php echo ($vendido[3]); ?>, <?php echo($despesas[3]); ?> , <?php echo(($vendido[3]-$despesas[3])); ?>],
-								["Maio",      <?php echo ($vendido[4]); ?>, <?php echo($despesas[4]); ?> , <?php echo(($vendido[4]-$despesas[4])); ?>],
-								["Junho",     <?php echo ($vendido[5]); ?>, <?php echo($despesas[5]); ?> , <?php echo(($vendido[5]-$despesas[5])); ?>],
-								["Julho",     <?php echo ($vendido[6]); ?>, <?php echo($despesas[6]); ?> , <?php echo(($vendido[6]-$despesas[6])); ?>],
-								["Agosto",    <?php echo ($vendido[7]); ?>, <?php echo($despesas[7]); ?> , <?php echo(($vendido[7]-$despesas[7])); ?>],
-								["Setembro",  <?php echo ($vendido[8]); ?>, <?php echo($despesas[8]); ?> , <?php echo(($vendido[8]-$despesas[8])); ?>],
-								["Outubro",   <?php echo ($vendido[9]); ?>, <?php echo($despesas[9]); ?> , <?php echo(($vendido[9]-$despesas[9])); ?>],
-								["Novembro",  <?php echo ($vendido[10]); ?>, <?php echo($despesas[10]); ?> , <?php echo($vendido[10]-$despesas[10]); ?>],
-								["Dezembro",  <?php echo ($vendido[11]); ?>, <?php echo($despesas[11]); ?> , <?php echo($vendido[11]-$despesas[11]); ?>]
-							
+					["Janeiro",   <?php echo ($vendido[0]); ?>, <?php echo($despesas[0]); ?> , <?php echo(($vendido[0]-$despesas[0])); ?>],
+					["Feveiro",   <?php echo ($vendido[1]); ?>, <?php echo($despesas[1]); ?> , <?php echo(($vendido[1]-$despesas[1])); ?>],
+					["Março",     <?php echo ($vendido[2]); ?>, <?php echo($despesas[2]); ?> , <?php echo(($vendido[2]-$despesas[2])); ?>],
+					["Abril",     <?php echo ($vendido[3]); ?>, <?php echo($despesas[3]); ?> , <?php echo(($vendido[3]-$despesas[3])); ?>],
+					["Maio",      <?php echo ($vendido[4]); ?>, <?php echo($despesas[4]); ?> , <?php echo(($vendido[4]-$despesas[4])); ?>],
+					["Junho",     <?php echo ($vendido[5]); ?>, <?php echo($despesas[5]); ?> , <?php echo(($vendido[5]-$despesas[5])); ?>],
+					["Julho",     <?php echo ($vendido[6]); ?>, <?php echo($despesas[6]); ?> , <?php echo(($vendido[6]-$despesas[6])); ?>],
+					["Agosto",    <?php echo ($vendido[7]); ?>, <?php echo($despesas[7]); ?> , <?php echo(($vendido[7]-$despesas[7])); ?>],
+					["Setembro",  <?php echo ($vendido[8]); ?>, <?php echo($despesas[8]); ?> , <?php echo(($vendido[8]-$despesas[8])); ?>],
+					["Outubro",   <?php echo ($vendido[9]); ?>, <?php echo($despesas[9]); ?> , <?php echo(($vendido[9]-$despesas[9])); ?>],
+					["Novembro",  <?php echo ($vendido[10]); ?>, <?php echo($despesas[10]); ?> , <?php echo($vendido[10]-$despesas[10]); ?>],
+					["Dezembro",  <?php echo ($vendido[11]); ?>, <?php echo($despesas[11]); ?> , <?php echo($vendido[11]-$despesas[11]); ?>]
 				]);
 
 				var optionsLine = {
 					chart: {
-					title: 'Valor de vendas, despesas e lucro por meses do ano.',
-					subtitle: 'Em reais (R$)'
+						title: 'Valor de vendas, despesas e lucro por meses do ano.',
+						subtitle: 'Em reais (R$)'
 					},
 					width: '100%',
 					height: 500,
 					axes: {
-					x: {
-						0: {side: 'bottom'}
-					}
+						x: {
+							0: {side: 'bottom'}
+						}
 					},
-							legend: { position: "bottom" },				
-							colors: ['#0D47A1', 'd0181e','#2E7D32']
+					legend: { position: "bottom" },				
+					colors: ['#0D47A1', 'd0181e','#2E7D32']
 				};
 
 				var chartLine = new google.charts.Line(document.getElementById('corpo'));
-
 
 				var data_column = google.visualization.arrayToDataTable([
 					["Meses", "Valor das vendas R$", { role: "style" } ,'Valor das despesas R$',{role:"style"}, 'Lucro em R$', {role: "style"} ],
@@ -114,9 +115,14 @@
 
 				var optionsColumn = {
 					title: "Valor de vendas, despesas e lucro por meses do ano.",
-					bar: {groupWidth: "90%"},
+					bar: {
+						groupWidth: "90%"
+					},
 					width:'100%',
-					legend: { position: "bottom" },
+					height: 500,
+					legend: { 
+						position: "bottom" 
+					},
 					colors: ['#0D47A1', 'd0181e' ,'#2E7D32']
 				};
 				var chart = new google.visualization.ColumnChart(document.getElementById("corpo"));
@@ -131,20 +137,18 @@
 			}
 		</script>
 	</head>
-	<body >
+	<body>
 		<header>
 			<nav class="blue darken-4">
 				<div class="nav-wrapper">
 					<a  class="brand-logo center white-text" href="#" style="margin-top: 0%;">Distribuidora Ale</a>
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right:5%;">
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
 						<li><a href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 					<ul class="sidenav grey darken-4" id="mobile-demo">
 						<li>Distribuidora Ale</li>
 						<li style='margin-right: 0%; padding: 0px;'><a class='sidenav-close' href='#!' style='padding: 0px;'><i class='material-icons right white-text'>close</i></a></li>
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
 						<li><a href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 				</div>
@@ -164,12 +168,13 @@
 					<li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
 					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
 					<li><a href="./geraGrafico.php?tipo=line" class="activeLi"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
+					<li><a href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 				</ul>
 			</div>
 			<div class="row" style="margin: 2% 2% 0%;">
 				<h4 class="center blue-text text-darken-4">Gráficos</h4>
 				<div class="divider black"></div>
-				<div class="row">
+				<div class="row right">
 					<?php
 						if($grafico == 'line'){
 							echo ('<a href="./geraGrafico.php?tipo=coluna" class="btn waves-effect waves-light blue white-text darken-4 center"><i class="material-icons left">bar_chart</i>Alterar para barras</a>');
@@ -178,11 +183,15 @@
 						}
 					?>
 				</div>
+				<div class="row"></div>
 				<div class="row">
-					<div id="corpo"></div>
+					<div class="col s12 m12 l12 xl12">
+						<div id="corpo"></div>
+					</div>
             	</div>
             </div>
 		</main>
+		
 		<footer class="page-footer blue darken-4 hide-on-small-only">
 			<div class="row container">
 				<div class="left">

@@ -1,6 +1,3 @@
-<?php 
-include_once("conexao.php");
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -11,38 +8,6 @@ include_once("conexao.php");
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Distribuidora Ale</title>
-		<style>
-			green{
-				color: green;
-			}
-			red{
-				color:red;
-			}
-            .alert {
-                padding: 20px;
-                background-color: #f44336;
-                color: white;
-            }
-            
-            .alert.warning {
-                background-color: #ff9800;
-            }
-
-            .closebtn {
-                margin-left: 15px;
-                color: white;
-                font-weight: bold;
-                float: right;
-                font-size: 22px;
-                line-height: 20px;
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            .closebtn:hover {
-                color: black;
-            }
-        </style>
 	</head>
 	<body>
 		<header>
@@ -51,14 +16,22 @@ include_once("conexao.php");
 					<a  class="brand-logo center white-text" href="#" style="margin-top: 0%;">Distribuidora Ale</a>
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right:5%;">
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
 						<li><a href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 					<ul class="sidenav grey darken-4" id="mobile-demo">
-						<li>Distribuidora Ale</li>
+                        <li class="subheader white-text center">Menu</li>
 						<li style='margin-right: 0%; padding: 0px;'><a class='sidenav-close' href='#!' style='padding: 0px;'><i class='material-icons right white-text'>close</i></a></li>
-						<li><a href="./admin.php" class="white-text">Administrativo</a></li>
-						<li><a href="./logout.php" class="white-text">Sair</a></li>
+						<li><a class="white-text" href="./addEstoque.php"><i class="material-icons white-text left">assignment</i>Adicionar ao Estoque</a></li>
+                        <li><a class="white-text" href="./cadastrarCliente.php"><i class="material-icons white-text left">face</i>Cadastrar Cliente</a></li>
+                        <li><a class="white-text" href="./cadastrarFornecedor.php" class="activeLi"><i class="material-icons white-text left">local_shipping</i>Cadastrar Fornecedor</a></li>
+                        <li><a class="white-text" href="./cadastrarProduto.php"><i class="material-icons white-text left">edit</i>Cadastrar Produto</a></li>
+                        <li><a class="white-text" href="./venda.php"><i class="material-icons white-text left">add_shopping_cart</i>Efetuar Venda</a></li>
+                        <li><a class="white-text" href="./estoque.php"><i class="material-icons white-text left">storage</i>Estoque</a></li>
+                        <li><a class="white-text" href="./relatorios.php"><i class="material-icons white-text left">description</i>Relatório De Produtos</a></li>
+                        <li><a class="white-text" href="./cadastrarDespesa.php"><i class="material-icons white-text left">attach_money</i>Despesas</a></li>
+                        <li><a class="white-text" href="./geraGrafico.php?tipo=line"><i class="material-icons white-text left">bar_chart</i>Gráficos</a></li>
+						<li><a class="white-text" href="./vendaDiaria.php"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
+						<li><a class="white-text" href="./logout.php" class="white-text">Sair</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -66,18 +39,18 @@ include_once("conexao.php");
 
 		<main>
             <div class="row">
-				<ul id="sidenav-1" class="sidenav sidenav-fixed grey lighten-5">
+			<ul id="sidenav-1" class="sidenav sidenav-fixed">
 					<li class="subheader white-text center">Menu</li>
 					<div class="row"></div>
 					<li><a href="./addEstoque.php"><i class="material-icons left">assignment</i>Adicionar ao Estoque</a></li>
 					<li><a href="./cadastrarCliente.php"><i class="material-icons left">face</i>Cadastrar Cliente</a></li>
 					<li><a href="./cadastrarFornecedor.php"><i class="material-icons left">local_shipping</i>Cadastrar Fornecedor</a></li>
-					<li><a href="./cadastrarProduto.php" ><i class="material-icons left">edit</i>Cadastrar Produto</a></li>
+					<li><a href="./cadastrarProduto.php"><i class="material-icons left">edit</i>Cadastrar Produto</a></li>
 					<li><a href="./venda.php"><i class="material-icons left">add_shopping_cart</i>Efetuar Venda</a></li>
 					<li><a href="./estoque.php"><i class="material-icons left">storage</i>Estoque</a></li>
 					<li><a href="./relatorios.php"><i class="material-icons left">description</i>Relatório De Produtos</a></li>
 					<li><a href="./cadastrarDespesa.php"><i class="material-icons left">attach_money</i>Despesas</a></li>
-					<li><a href="./geraGrafico.php"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
+					<li><a href="./geraGrafico.php?tipo=line"><i class="material-icons left">bar_chart</i>Gráficos</a></li>
 					<li><a href="./vendaDiaria.php" class="activeLi"><i class="material-icons left">bar_chart</i>Venda Diária</a></li>
 				</ul>
 			</div>
