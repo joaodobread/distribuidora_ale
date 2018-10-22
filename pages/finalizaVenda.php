@@ -101,27 +101,7 @@
 										// 	echo "<script>alert('Venda realizada com sucesso!')</script>";
 										// }
 									} else {
-										// if (isset($_POST['cliente'])) {
-										// 	$sql = "select idClientes from clientes where nomeCliente like ".$_POST['cliente'];
-										// 	$id = mysqli_query($con, $sql);
-										// 	foreach ($_SESSION['itens'] as $produto => $quantidade) {
-										// 		$sql = "insert into venda values (null,'".$id."', '".$produto."', '".$quantidade."',".$_SESSION['id']."','".date("Y-m-d")."')";
-										// 		$exec = true;
-										// 		$query = mysqli_query($con, $sql);
-										// 		echo "<tr>
-										// 				<td>".$produto."</td>
-										// 				<td>".$quantidade."</td>
-										// 			</tr>";
-										// 		if($query) {
-										// 			$exec = true;
-										// 		} else {
-										// 			$exec = false;
-										// 		}
-											
-										// 		$sql = "update produtos set qtdProduto = qtdProduto-$quantidade where eanProduto=$produto";
-										// 		$query = mysqli_query($con, $sql);
-										// 	}
-										// }
+										
 									}
 								?>
 								<div class="row"></div>
