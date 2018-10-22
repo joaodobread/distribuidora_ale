@@ -69,9 +69,11 @@ CREATE TABLE IF NOT EXISTS `shego`.`clientes` (
   `telefoneCliente` VARCHAR(20) NOT NULL,
   `emailCliente` VARCHAR(200) NULL,
   `enderecoCliente` VARCHAR(200) NULL,
+  `status` BOOLEAN DEFAULT 1,
   PRIMARY KEY (`idClientes`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
 
 
 -- -----------------------------------------------------

@@ -156,8 +156,9 @@
 										if(mysqli_num_rows($result) > 0){
 											echo ("<script>alert('Cliente já cadastrado');</script>");
 										}else{
-											$sql = "insert into clientes values(null,'$nome','$telefone','$email','$endereco')";
+											$sql = "insert into clientes values(null,'$nome','$telefone','$email','$endereco',1)";
 											mysqli_query($con, $sql);
+											// echo($sql);
 											echo ("<script>alert('Cliente cadastrado');</script>");
 										}
 									} 
@@ -166,26 +167,29 @@
                                 $resultado = mysqli_query($con, $sql) or die(mysqli_error($con));
                                 if(mysqli_num_rows($resultado) > 0) {
                                     while($row = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
-                                        echo "<tr>";
-                                            echo ("<td>".$row["nomeCliente"]."</td>");
-                                            echo ("<td>".$row["telefoneCliente"]."</td>");
-                                            echo ("<td>".$row["emailCliente"]."</td>");
-                                            echo ("<td>".$row["enderecoCliente"]."</td>");
-                                            echo ("<td><a href='cadastrarCliente.php?editar=true&id=".$row['idClientes']."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
-                                            echo ("<td><a href='#modal".$row["idClientes"]."' class='btn waves-effect waves-light red black-text modal-trigger'><b>Excluir</b></a></td>");
-										echo "</tr>";
-										echo "<div id='modal".$row["idClientes"]."' class='modal' style='margin-top: 15%; '>
-											<div class='modal-content' style='padding:0px;'>
-												<div class='row blue darken-4 white-text' style='margin-top:0%; padding-top:1%;'>
-													<h4 class='center'>Remover</h4>
+										if($row['status'] != 0){
+											echo "<tr>";
+											echo ("<td>".$row["nomeCliente"]."</td>");
+											echo ("<td>".$row["telefoneCliente"]."</td>");
+											echo ("<td>".$row["emailCliente"]."</td>");
+											echo ("<td>".$row["enderecoCliente"]."</td>");
+											echo ("<td><a href='cadastrarCliente.php?editar=true&id=".$row['idClientes']."' class='btn waves-effect waves-light yellow black-text'><b>Editar</b></a></td>");
+											echo ("<td><a href='#modal".$row["idClientes"]."' class='btn waves-effect waves-light red black-text modal-trigger'><b>Excluir</b></a></td>");
+											echo "</tr>";
+											echo "<div id='modal".$row["idClientes"]."' class='modal' style='margin-top: 15%; '>
+												<div class='modal-content' style='padding:0px;'>
+													<div class='row blue darken-4 white-text' style='margin-top:0%; padding-top:1%;'>
+														<h4 class='center'>Remover</h4>
+													</div>
+													<div class='row'><p>Deseja remover o cliente: <b>".$row["nomeCliente"]."</b>?</p></div>
 												</div>
-												<div class='row'><p>Deseja remover o cliente: <b>".$row["nomeCliente"]."</b>?</p></div>
-											</div>
-											<div class='modal-footer' style=''>
-												<a href='#!' class='modal-close waves-effect waves-light btn-flat red'><b>Cancelar</b></a>
-												<a href='removerCliente.php?id=".$row['idClientes']."' class='waves-effect waves-light btn-flat green'><b>Aceitar</b></a>
-											</div>
-										</div>";
+												<div class='modal-footer' style=''>
+													<a href='#!' class='modal-close waves-effect waves-light btn-flat red'><b>Cancelar</b></a>
+													<a href='removerCliente.php?id=".$row['idClientes']."' class='waves-effect waves-light btn-flat green'><b>Aceitar</b></a>
+												</div>
+											</div>";
+										}
+
                                     }
                                 }
                             ?>
